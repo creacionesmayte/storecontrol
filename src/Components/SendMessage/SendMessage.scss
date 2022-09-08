@@ -1,0 +1,73 @@
+@import './../../responsive/mixin';
+
+.sendmessage {
+    .modal {
+
+        @include respond(tab-port) {
+            margin: 0;
+        }
+
+        .modal-dialog {
+            max-width: 100%;
+            padding: 30px;
+    
+            @include respond(tab-port) {
+                padding: 0px;
+            }
+    
+            .modal-body {
+                padding: 40px;
+    
+                @include respond(tab-port) {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+    .search {
+        // width: fit-content;
+        border-radius: 20px;
+        padding: 5px 15px;
+        display: flex;
+        width: 300px;
+        box-shadow: 0px 0px 10px rgb(221, 222, 228), 0px 0px 10px rgb(221, 222, 228);
+
+        @include respond(tab-port) {
+            width: 100%;
+        }
+        
+        .btn {
+            height: 100%;
+            padding: 0px 10px;
+        }
+
+        .txt_input {
+            border: 0;
+            background-color: transparent;
+            width: 100%;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .table_overflow {
+
+        @include respond(tab-port) {
+            overflow-x: scroll;
+        }
+
+        .table {
+            background-color: white;
+            box-shadow: 0px 0px 10px rgb(237,238,243), 0px 0px 10px rgb(237,238,243);
+            margin: 20px 0px;
+
+            thead {
+                background-color: rgb(40, 50, 60);
+                color: white;
+            }
+        }
+    }
+}

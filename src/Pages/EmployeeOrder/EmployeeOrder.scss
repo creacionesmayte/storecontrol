@@ -1,0 +1,33 @@
+@import '../../responsive/mixin';
+
+.employeeorder {
+    height: 100%;
+
+    .btn_all {
+        height: 60px;
+    }
+
+    .modal {
+
+        @include respond(tab-port) {
+            margin: 0;
+        }
+
+        .modal-dialog {
+            max-width: 100%;
+            padding: 30px;
+    
+            @include respond(tab-port) {
+                padding: 0px;
+            }
+    
+            .modal-body {
+                padding: 40px;
+    
+                @include respond(tab-port) {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+}

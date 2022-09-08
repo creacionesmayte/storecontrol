@@ -1,0 +1,78 @@
+@import '../../responsive/mixin';
+@import '../../responsive/variables';
+
+.product_det {
+
+    .head {
+        text-align: center;
+    }
+
+    .product_table {
+        position: relative;
+        width: 100%;
+        overflow: auto;
+    
+        .table {
+    
+            @include respond(tab-land) {
+                width: 1000px;
+            }
+        }
+    }
+    tr.hide-table-padding td {
+        padding: 0;
+    }
+    .expand-button {
+        position: relative;
+    }
+    
+    .accordion-toggle .expand-button:after
+    {
+        position: absolute;
+        left:.75rem;
+        top: 50%;
+        transform: translate(0, -50%);
+        content: '-';
+        font-size: 20px;
+    }
+    .accordion-toggle.collapsed .expand-button:after{
+        content: '+';
+        font-size: 20px;
+    }
+
+    .table_inner .show {
+        width: 100%;
+        background-color: white;
+    }
+
+    .icon_ind {
+        font-size: 20px;
+        // position: absolute;
+        // left: 10px;
+        
+    }
+
+    .edit {
+        text-align: center;
+
+        .close_icon_ind {
+            font-size: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+    
+            &:hover {
+                color: red;
+            }
+        }
+
+        .edit_icon_ind {
+            font-size: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+    
+            &:hover {
+                color: $color5;
+            }
+        }
+    }
+}

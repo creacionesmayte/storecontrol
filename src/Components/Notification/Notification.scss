@@ -1,0 +1,50 @@
+@import '../../responsive/mixin';
+
+.notification {
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgb(230,231,237), 0px 0px 10px rgb(230,231,237);
+    position: relative;
+    // height: 500px;
+    // overflow: hidden;
+
+    @include respond(tab-port) {
+        height: 500px !important;
+    }
+    
+    .title {
+        font-size: 20px;
+        font-weight: 600;
+    }
+    
+    .not_scroll {
+        // height: 100%;
+        max-height: 90%;
+        overflow: auto;
+    
+        .notify_main {
+    
+            .notify_title {
+                font-size: 15px;
+                font-weight: 600;
+            }
+    
+            .notify_date {
+                font-size: 12px;
+                margin: 0px 10px;
+            }
+    
+            .notify_msg {
+                font-size: 14px;
+            }
+    
+            .close_btn {
+                
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+}

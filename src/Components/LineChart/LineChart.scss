@@ -1,0 +1,30 @@
+@import '../../responsive/mixin';
+
+.line_chart {
+    // position: relative;
+
+    .title {
+        font-size: 20px;
+        font-weight: 600;
+
+        @include respond(tab-port) {
+            font-size: 15px;
+        }
+    }
+
+    .select_btn {
+
+        select {
+            color: rgb(16,116,231);
+            background-color: rgba(16,116,231, 0.1);
+            border: 0;
+            margin-left: 5px;
+            border-radius: 2px;
+            padding: 3px 8px;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}

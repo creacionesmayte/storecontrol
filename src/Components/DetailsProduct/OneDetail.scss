@@ -1,0 +1,15 @@
+@import '../../responsive/mixin';
+
+.one_detail {
+    
+    @include respond(tab-port) {
+        .container-fluid {
+            padding: 0;
+
+        }
+
+    }
+    .style-name{
+        font-weight: 600;
+                    }
+}

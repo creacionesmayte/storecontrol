@@ -1,0 +1,109 @@
+@import '../../responsive/mixin';
+
+.sidebar_main {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(30, 40, 50);
+    color: white;
+
+    .btn_main {
+        display: none;
+        justify-content: flex-end;
+        padding: 10px;
+
+        @include respond(tab-port) {
+            display: flex;
+        }
+
+        .close_btn {
+            border: 0;
+            background-color: transparent;
+            color: #fff;
+        }
+    }
+
+    .profile {
+        // height: 200px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: 0.2s ease-in-out;
+
+        .profile_img{
+            width: 150px;
+            height: 150px;
+            border-radius: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgb(61, 75, 88);
+            overflow: hidden;
+            
+            .user_img {
+                // width: 100%;
+                // height: 100%;
+                display: block;
+                max-height: 100%;
+                width: auto;
+            }
+
+        }
+
+        .profile_name {
+            margin: 20px 0px;
+
+            // @include respond(tab-port) {
+            //     display: none;
+            // }
+        }
+    }
+
+    .sidebar_list {
+        list-style-type: none;
+        padding: 0;
+
+        .nested_list {
+            
+            .sidebar_link {
+                padding: 20px 0px;
+                transition: 0.2s ease-in-out;
+                width: 100%;
+                
+                &:hover {
+                    color: white;
+                    cursor: pointer;
+                    background-color: rgb(51, 65, 78);
+                }
+            }
+            a {
+                color: rgba($color: #fff, $alpha: 0.3);
+                text-decoration: none;
+            }
+        }
+
+        .active_link {
+            color: white;
+            background-color: rgb(61, 75, 88);
+        }
+    }
+
+
+
+    .footer-style{
+        text-align: center;
+        position: fixed;
+        bottom: 0;
+        width:250px;
+     
+            background-color:rgb(21, 29, 38);
+            a{color: rgba(255, 255, 255, 0.601) ;
+                margin-top: 1%;
+                text-decoration: none;
+   font-size: 10px;
+               }
+        
+               margin-bottom: 0.5%;  
+    }
+}

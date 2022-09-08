@@ -1,0 +1,81 @@
+@import '../../responsive/variables';
+
+.Color-pick {    
+
+    .head {
+        text-align: center;
+    }
+
+    .collapse.show {
+        display: table;
+    }
+
+    .color_name {
+        text-align: center;
+        position: relative;
+
+        .close_icon {
+            position: absolute;
+            left: 10px;
+            font-size: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+
+            &:hover {
+                color: $color5;
+            }
+        }
+
+    }
+
+    .edit {
+        text-align: center;
+
+        .close_icon_ind {
+            font-size: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+    
+            &:hover {
+                color: red;
+            }
+        }
+
+        .edit_icon_ind {
+            font-size: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+    
+            &:hover {
+                color: $color5;
+            }
+        }
+    }
+    
+    .img_grid {
+        background-color: blue;
+        height: auto;
+
+        .img_dis {
+            width: 100px;
+            height: 100%;
+            background-color: brown;
+            position: relative;
+
+            #target {
+                width: 100%;
+            }
+
+            .img_close {
+                position: absolute;
+                right: 0;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .image_alre {
+        width: auto;
+        height: 100px;
+    }
+}

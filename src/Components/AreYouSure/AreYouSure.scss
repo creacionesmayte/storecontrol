@@ -1,0 +1,26 @@
+@import '../../responsive/mixin';
+
+.areyousure {
+
+    .modal-content {
+        margin: 10px;
+
+        .modal-footer {
+            padding: 0;
+    
+            button {
+                margin: 0;
+                border-radius: 0;
+                width: 100%;
+            }
+        }
+    }
+
+    .text-font {
+        font-size: 25px;
+
+        @include respond(tab-port) {
+            font-size: 15px;
+        }
+    }
+}

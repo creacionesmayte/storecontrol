@@ -1,0 +1,85 @@
+@import '../../responsive/mixin';
+
+.Login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100%;
+	padding: 10px;
+	color: white;
+	
+	// Content we're putting a blur over
+	.background {
+		background-image: url('../../assets/background1.jpg');
+		background-position: bottom;
+		background-repeat: no-repeat;
+		background-size: cover;
+		height: 100vh;
+		width: 100%;
+		position: absolute;
+		
+		// Background Blur using backdrop-filter
+		.blur {
+			background: rgba(255, 255, 255, 0.2); // Make sure this color has an opacity of less than 1
+			backdrop-filter: blur(8px); // This be the blur
+			height: 100vh;
+			width: 100%;
+		}
+	}
+
+	.content-modal {
+		// width: fit-content;
+		position: absolute;
+		padding: 50px;
+		border-radius: 10px;
+		background-color: rgba($color: #000000, $alpha: 0.3);
+		// border: 1px solid black;
+		
+		@include respond(phone) {
+			position: relative;
+			width: 100%;
+			padding: 20px;
+		}
+
+		.h-modal {
+			padding: 20px 0;
+			text-align: -webkit-center;
+			font-weight: 700;
+			font-size: 26px;
+			line-height: 36px;
+
+			.nav-link {
+				color: white;
+			}
+		}
+		
+		.b-modal {
+			text-align: -webkit-center;
+			// margin-top: 1.5em;
+		
+			.btn-login {
+				margin: 30px 0;
+				color: white;
+				width: 100%;
+				height: 50px;
+				background: #004a9f;
+				border: 0;
+				width: 100%;
+				border-radius: 7px;
+			}
+
+			.order_payment {
+				margin-bottom: 10px;
+		
+				.form-check-label {
+					font-size: 18px;
+		
+					@include respond(tab-port) {
+						font-size: 15px;
+					}
+				}
+			}
+		}
+	}
+}

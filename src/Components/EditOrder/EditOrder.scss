@@ -1,0 +1,34 @@
+@import '../../responsive/mixin';
+
+.editorder {
+
+    .input_price {
+        border: 1px solid rgba(0,0,0,0.2);
+        display: flex;
+        border-radius: 8px;
+        overflow: hidden;
+        width: fit-content;
+
+        .side_show {
+            width: 50px;
+            padding: 5px 10ox;
+            background-color: rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        input {
+            border: 0;
+            padding: 5px 10px;
+
+            &:focus {
+                outline: none;
+            }
+
+            @include respond(tab-port) {
+                width: 100%;
+            }
+        }
+    }
+}

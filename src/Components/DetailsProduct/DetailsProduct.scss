@@ -1,0 +1,106 @@
+@import './../../responsive/mixin';
+
+.detailsProduct {
+
+    .display_img {
+        width: 100%;
+        height: 100px;
+        border: 1px solid rgba(0,0,0,0.2);
+        border-style: dashed;
+        border-radius: 8px;
+        margin: 10px 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: rgba(0,0,0,0.2);
+        // background-color: rgba(0,0,0,0.2);
+    }
+
+    .modal {
+
+        @include respond(tab-port) {
+            margin: 0;
+        }
+
+        .modal-dialog {
+            max-width: 100%;
+            padding: 30px;
+    
+            @include respond(tab-port) {
+                padding: 0px;
+            }
+    
+            .modal-body {
+                padding: 40px;
+                overflow-x: scroll;
+    
+                @include respond(tab-port) {
+                    padding: 10px;
+                }
+            }
+        }
+    }
+
+
+    .image_display {
+        width: 100%;
+        height: 200px;
+        display: flex;
+        justify-content: space-around;
+
+        .image_outside {
+            // width: 200px;
+            height: 100%;
+            display: flex;
+
+            img {
+                // width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    .image_slide {
+        height: 400px;
+
+        @include respond(tab-port) {
+            height: 200px;
+        }
+
+        .carousel {
+            height: 100%;
+
+            .carousel-inner {
+                height: 100%;
+                
+                .carousel-item {
+                    height: 100%;
+                    width: 100%;
+                    text-align: center;
+
+                    img {
+                        height: 100%;
+                    }
+                }
+            }
+            .carousel-control-next, .carousel-control-prev {
+                color: black;
+            }
+        }
+
+    }
+
+    // .carousel {
+    //     height: 200px;
+        
+    //     .carousel-inner {
+    //         display: flex;
+    //         height: 100%;
+
+    //         img {
+    //             height: 100%;
+    //         }
+    //     }
+    // }
+
+}

@@ -1,0 +1,125 @@
+@import '../../responsive/mixin';
+
+.displaystock {
+    width: 100%;
+
+    .productorder {
+        margin: 20px;
+        border-bottom: 1px solid rgba(0,0,0,0.3);
+        border-radius: 5px;
+        padding: 10px;
+        transition: 0.2s ease-in-out;
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        .product_data {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
+
+            .coloring {
+                border: 1px solid black;
+            }
+
+            .small_details {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-end;
+            }
+
+            .deposito_col {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+
+                .stock {
+                    width: 50px;
+                    padding: 5px 10px;
+                    border-radius: 5px;
+                    color: white;
+                    display: flex;
+                    justify-content: center;
+                }
+            }
+
+            .first_col {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+
+            .second_col {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+            }
+
+            .third_col {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: flex-end;
+            }
+
+            @include respond (tab-port) {
+                .deposito_col {
+                    align-items: flex-start;
+                }
+
+                .first_col {
+                    justify-content: flex-start;
+                }
+
+                .second_col {
+                    justify-content: flex-start;
+                }
+
+                .third_col {
+                    align-items: flex-start;
+                }
+            }
+        }
+
+        .image_display {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            justify-content: space-around;
+    
+            .image_outside {
+                // width: 200px;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                overflow: hidden;
+    
+                img {
+                    // width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+
+        .delete_btn {
+            display: flex;
+            justify-content: flex-end;
+
+            @include respond(tab-port) {
+                width: 100%;
+
+                button {
+                    width: 100%;
+                }
+            }
+
+            button {
+                margin: 0px 0px 0px 5px;
+            }
+        }
+    }
+}

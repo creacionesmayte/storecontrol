@@ -1,0 +1,35 @@
+export const Employee_master = [
+    {
+        Employee_id: 1,
+        Username: 'CheGuevara007',
+        First_name: 'Che',
+        Last_name: 'Guevara',
+        Email: 'cheguevara456@gmail.com',
+        Password: '12345678',
+        Salary: 20000,
+        Join_date: '1/1/2020',
+        Leaves: 30,
+    },
+    {
+        Employee_id: 2,
+        Username: 'ManuGinóbili007',
+        First_name: 'Manu',
+        Last_name: 'Ginóbili',
+        Email: 'manuginóbili456@gmail.com',
+        Password: '12345678',
+        Salary: 20000,
+        Join_date: '19/5/2020',
+        Leaves: 20,
+    },
+    {
+        Employee_id: 3,
+        Username: 'LaliEspósito007',
+        First_name: 'Lali',
+        Last_name: 'Espósito',
+        Email: 'laliespósito456@gmail.com',
+        Password: '12345678',
+        Salary: 20000,
+        Join_date: '19/5/2020',
+        Leaves: 41,
+    }
+]
