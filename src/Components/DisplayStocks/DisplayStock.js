@@ -21,7 +21,7 @@ function DisplayStock({details, idMod, ...props}) {
     // useEffect(() => {
     //     async function dat() {
     //         if (lop) {
-    //             await axios.get("http://localhost:5000/product").then((item) => {
+    //             await axios.get("https://creacionesmayteserver.herokuapp.com/product").then((item) => {
     //                 var alldata = item.data
     //                 if(alldata.length > 0) {
     //                     if(typeof alldata[0].Color === 'string') {
@@ -42,7 +42,7 @@ function DisplayStock({details, idMod, ...props}) {
     //                 });
     //                 allproduct(alldata);
     //             })
-    //             await axios.get("http://localhost:5000/category").then((item) => {
+    //             await axios.get("https://creacionesmayteserver.herokuapp.com/category").then((item) => {
     //                 category(item.data);
     //             })
     //             setlop(false);

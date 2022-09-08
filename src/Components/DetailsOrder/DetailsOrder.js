@@ -61,11 +61,11 @@ function DetailsOrder({ details_data, setDetailsData, order, setOrder, particula
 				await window.api.addData(Products, "Products");
 			}
 			if(Status) {
-				await axios.put('http://localhost:5000/product/quantity', req_data)
-				await axios.delete(`http://localhost:5000/ordermaster/delete/${order.Order_id}`)
-				await axios.delete(`http://localhost:5000/orderproduct/delete/${val.Order_pro_id}`)
+				await axios.put('https://creacionesmayteserver.herokuapp.com/product/quantity', req_data)
+				await axios.delete(`https://creacionesmayteserver.herokuapp.com/ordermaster/delete/${order.Order_id}`)
+				await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${val.Order_pro_id}`)
 				.then(async item => {
-					await axios.get('http://localhost:5000/ordermaster')
+					await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 						.then(async prod => {
 							let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 							prod.data.sort(function (d1, d2) {
@@ -91,11 +91,11 @@ function DetailsOrder({ details_data, setDetailsData, order, setOrder, particula
 									Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
 								}
 							}
-							await axios.put('http://localhost:5000/salesactivity/day', {
+							await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
 								Sales_id: Sales_Activity[index].Sales_id,
 								...Sales_Activity[index]
 							})
-							await axios.get('http://localhost:5000/salesactivity')
+							await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
 								.then(async item => {
 									for(var t=0; t < item.data.length; t++) {
 										for(var m=0; m < months_data.length; m++) {
@@ -152,14 +152,14 @@ function DetailsOrder({ details_data, setDetailsData, order, setOrder, particula
 			setDetailsData(details_data)
 			setOrder({...order, Total_price: order.Total_price - val.Total_price})
 			if(Status) {
-				await axios.put('http://localhost:5000/product/quantity', req_data_el)
-				await axios.put(`http://localhost:5000/ordermaster/price`, {
+				await axios.put('https://creacionesmayteserver.herokuapp.com/product/quantity', req_data_el)
+				await axios.put(`https://creacionesmayteserver.herokuapp.com/ordermaster/price`, {
 					Order_id: order.Order_id,
 					Total_price: order.Total_price - val.Total_price
 				})
-				await axios.delete(`http://localhost:5000/orderproduct/delete/${val.Order_pro_id}`)
+				await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${val.Order_pro_id}`)
 					.then(async item => {
-						await axios.get('http://localhost:5000/ordermaster')
+						await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 							.then( async prod => {
 								let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 								prod.data.sort(function (d1, d2) {
@@ -185,11 +185,11 @@ function DetailsOrder({ details_data, setDetailsData, order, setOrder, particula
 										Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
 									}
 								}
-								await axios.put('http://localhost:5000/salesactivity/day', {
+								await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
 									Sales_id: Sales_Activity[index].Sales_id,
 									...Sales_Activity[index]
 								})
-								await axios.get('http://localhost:5000/salesactivity')
+								await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
 									.then(async item => {
 										for(var t=0; t < item.data.length; t++) {
 											for(var m=0; m < months_data.length; m++) {
@@ -281,11 +281,11 @@ function DetailsOrder({ details_data, setDetailsData, order, setOrder, particula
 														<button 
 															className={`${order?.Order_status === 'Paid' ? 'bg-success' : 'bg-danger'} px-2 py-1 rounded text-light`}
 															onClick={async () => {
-																await axios.put('http://localhost:5000/ordermaster/status', {
+																await axios.put('https://creacionesmayteserver.herokuapp.com/ordermaster/status', {
 																	Order_id: order.Order_id,
 																	Order_status: 'Unpaid'
 																})
-																await axios.get('http://localhost:5000/ordermaster')
+																await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 																	.then(prod => {
 																		prod.data.sort(function (d1, d2) {
 																			return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -306,11 +306,11 @@ function DetailsOrder({ details_data, setDetailsData, order, setOrder, particula
 														<button 
 															className={`${order?.Order_status === 'Paid' ? 'bg-success' : 'bg-danger'} px-2 py-1 rounded text-light`}
 															onClick={async () => {
-																await axios.put('http://localhost:5000/ordermaster/status', {
+																await axios.put('https://creacionesmayteserver.herokuapp.com/ordermaster/status', {
 																	Order_id: order.Order_id,
 																	Order_status: 'Paid'
 																})
-																await axios.get('http://localhost:5000/ordermaster')
+																await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 																	.then(prod => {
 																		prod.data.sort(function (d1, d2) {
 																			return new Date(d2.createdAt) - new Date(d1.createdAt);

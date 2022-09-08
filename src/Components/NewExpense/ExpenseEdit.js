@@ -35,7 +35,7 @@ function ExpenseEdit({ allExpenses, setAllExpenses, editexp, seteditexp, ...prop
 
 	const onSubmit = async (values, { resetForm }) => {
 		if(Status) {
-			await axios.put("http://localhost:5000/expense/edit", {
+			await axios.put("https://creacionesmayteserver.herokuapp.com/expense/edit", {
 				...values,
 				ExpenseId: editexp.ExpenseId,
 				date: new Date(values.date).toLocaleString(),

@@ -84,7 +84,7 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 			await store_NotifyMaster('FindProduct', Status, Notific, notify)
 			// if(Products.length === 0) {
 			// 	if(Status) {
-			// 		await axios.get("http://localhost:5000/product").then(async (item1) => {
+			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item1) => {
 			// 			console.log('FindProduct -> Products')
 			// 			var alldata = item1.data
 			// 			if(alldata.length > 0) {
@@ -121,7 +121,7 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 			// }
 			// if(CategoryAdd.length === 0) {
 			// 	if(Status) {
-			// 		await axios.get("http://localhost:5000/category").then(async (item) => {
+			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/category").then(async (item) => {
 			// 			console.log('FindProduct -> Category')
 			// 			category(item.data);
 			// 			if(window.desktop) {
@@ -136,7 +136,7 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 			// 				// 		}
 			// 				// 		if(flaging === 1) {
 			// 				// 			console.log('FindProduct -> Category Delete')
-			// 				// 			await axios.delete(`http://localhost:5000/category/delete/${c.Category_id}`)
+			// 				// 			await axios.delete(`https://creacionesmayteserver.herokuapp.com/category/delete/${c.Category_id}`)
 			// 				// 			var filter = item.data.filter(item => item.Category_id !== c.Category_id)
 			// 				// 			await window.api.addData(filter, "CategoryAdd")
 			// 				// 		}
@@ -153,7 +153,7 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 			// }
 			// if(DepositoAdd.length === 0) {
 			// 	if(Status) {
-			// 		await axios.get("http://localhost:5000/deposito").then(async (item) => {
+			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/deposito").then(async (item) => {
 			// 			console.log('FindProduct -> Deposito')
 			// 			deposito(item.data);
 			// 			if(window.desktop) {
@@ -182,12 +182,12 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 							var product_save = ord.order_product
 							// console.log('product_save', product_save)
 							delete ord.order_product
-							await axios.post('http://localhost:5000/ordermaster/new', ord)
+							await axios.post('https://creacionesmayteserver.herokuapp.com/ordermaster/new', ord)
 								.then(async (item1) => {
 									for(let i=0; i<product_save.length; i++) {
 										product_save[i].Order_id = item1.data.Order_id
 									}
-									await axios.post('http://localhost:5000/orderproduct/new', product_save)
+									await axios.post('https://creacionesmayteserver.herokuapp.com/orderproduct/new', product_save)
 										.then(async (item2) => {
 											for(let i=0; i<product_save.length; i++) {
 												var stock = Products.filter((p) => p.Product_id === product_save[i].Product_id)[0].Stock
@@ -198,8 +198,8 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 													Stock: JSON.stringify(stock)
 												}
 										
-												await axios.put('http://localhost:5000/product/quantity', req_data)
-												await axios.get('http://localhost:5000/ordermaster')
+												await axios.put('https://creacionesmayteserver.herokuapp.com/product/quantity', req_data)
+												await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 													.then(async prod => {
 														prod.data.sort(function (d1, d2) {
 															return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -230,11 +230,11 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 																Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
 															}
 														}
-														await axios.put('http://localhost:5000/salesactivity/day', {
+														await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
 															Sales_id: Sales_Activity[index].Sales_id,
 															...Sales_Activity[index]
 														})
-														await axios.get('http://localhost:5000/salesactivity')
+														await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
 															.then(async item4 => {
 																if(typeof Sales_Activity[index][months_data[month]] === 'string') {
 																	for(var t=0; t < item4.data.length; t++) {
@@ -259,7 +259,7 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 										// 			var Color = code.Color[c]
 										// 			var Size = code.Size[c][index_code]
 										// 			console.log('Orders -> Notifiaction')
-										// 			axios.post("http://localhost:5000/notification/new",{
+										// 			axios.post("https://creacionesmayteserver.herokuapp.com/notification/new",{
 										// 				Title: Stock === 0 ? 'Stock danger' : Stock <= 3 ? 'Stock warning': null,
 										// 				Message:  Stock === 0 ? `El producto de ${nombre} (${Color}, ${Size}) se agoto. cargue mas stock !` : Stock <= 3 ? `El producto de ${nombre} (${Color}, ${Size}) se esta apunto de acabar. cargue mas stock !`:  null,
 										// 				Date: new Date().toLocaleString()
@@ -277,7 +277,7 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 								})
 						}
 					})
-					await axios.get('http://localhost:5000/ordermaster')
+					await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 					.then(async (item) => {
 						// console.log(item.data.length, orders.Orders.length, item.data.length < orders.Orders.length)
 						if(item.data.length > orders.Orders.length) {
@@ -291,10 +291,10 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 								}
 								if(flag2 === 0) {
 									// console.log(item.data[n])
-									await axios.delete(`http://localhost:5000/ordermaster/delete/${it.Order_id}`)
-									await axios.delete(`http://localhost:5000/orderproduct/delete/${it.order_product[0].Order_pro_id}`)
+									await axios.delete(`https://creacionesmayteserver.herokuapp.com/ordermaster/delete/${it.Order_id}`)
+									await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${it.order_product[0].Order_pro_id}`)
 									.then(async item => {
-										await axios.get('http://localhost:5000/ordermaster')
+										await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 											.then(async prod => {
 												let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 												prod.data.sort(function (d1, d2) {
@@ -318,11 +318,11 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 														Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
 													}
 												}
-												await axios.put('http://localhost:5000/salesactivity/day', {
+												await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
 													Sales_id: Sales_Activity[index].Sales_id,
 													...Sales_Activity[index]
 												})
-												await axios.get('http://localhost:5000/salesactivity')
+												await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
 													.then(async item => {
 														for(var t=0; t < item.data.length; t++) {
 															for(var m=0; m < months_data.length; m++) {
@@ -352,13 +352,13 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 									ord.order_product.forEach(async function(myord) {
 										val = itempro.order_product.filter(it => it.Order_pro_id !== myord.Order_pro_id)[0]
 									})
-									await axios.put(`http://localhost:5000/ordermaster/price`, {
+									await axios.put(`https://creacionesmayteserver.herokuapp.com/ordermaster/price`, {
 										Order_id: itempro.Order_id,
 										Total_price: itempro.Total_price - val.Total_price
 									})
-									await axios.delete(`http://localhost:5000/orderproduct/delete/${val.Order_pro_id}`)
+									await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${val.Order_pro_id}`)
 										.then(async item => {
-											await axios.get('http://localhost:5000/ordermaster')
+											await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
 												.then( async prod => {
 													let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 													prod.data.sort(function (d1, d2) {
@@ -382,11 +382,11 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 															Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
 														}
 													}
-													await axios.put('http://localhost:5000/salesactivity/day', {
+													await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
 														Sales_id: Sales_Activity[index].Sales_id,
 														...Sales_Activity[index]
 													})
-													await axios.get('http://localhost:5000/salesactivity')
+													await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
 														.then(async item => {
 															for(var t=0; t < item.data.length; t++) {
 																for(var m=0; m < months_data.length; m++) {

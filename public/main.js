@@ -88,7 +88,7 @@ app.whenReady().then(async () => {
     //         // }
     //         // if (users.length !== 0) {
     //         //     await axios
-    //         //         .get("http://localhost:5000/users")
+    //         //         .get("https://creacionesmayteserver.herokuapp.com/users")
     //         //         .then((online_users) => {
     //         //             users.forEach(async function (user) {
     //         //                 let flag = 0;
@@ -100,7 +100,7 @@ app.whenReady().then(async () => {
     //         //                 });
     //         //                 if (flag === 0) {
     //         //                     await axios.post(
-    //         //                         "http://localhost:5000/users",
+    //         //                         "https://creacionesmayteserver.herokuapp.com/users",
     //         //                         {
     //         //                             name: user.name,
     //         //                             email: user.email,
@@ -112,7 +112,7 @@ app.whenReady().then(async () => {
     //         // }
 
     //         // await axios
-    //         //     .get("http://localhost:5000/users")
+    //         //     .get("https://creacionesmayteserver.herokuapp.com/users")
     //         //     .then((online_users) =>
     //         //         fs.writeFileSync(
     //         //             user_name,
@@ -129,7 +129,7 @@ app.whenReady().then(async () => {
     //         //     m = JSON.parse(fs.readFileSync(post_name).toString());
     //         // }
     //         // await axios
-    //         //     .get("http://localhost:5000/posts")
+    //         //     .get("https://creacionesmayteserver.herokuapp.com/posts")
     //         //     .then((online_post) =>
     //         //         fs.writeFileSync(
     //         //             post_name,

@@ -6,7 +6,7 @@ let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"
 export const store_SalesActivity = async (naming, Status, Sales_Activity, allsalesactivity) => {
     if(Sales_Activity.length === 0) {
         if(Status) {
-            await axios.get('http://localhost:5000/salesactivity')
+            await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
                 .then(async item => {
                     console.log(`${naming} -> Sales Activity`)
                     var main_data = item.data
@@ -32,7 +32,7 @@ export const store_SalesActivity = async (naming, Status, Sales_Activity, allsal
                             ...single_month 
                         }
                         main_data.push(data)
-                        await axios.post('http://localhost:5000/salesactivity/new', data)
+                        await axios.post('https://creacionesmayteserver.herokuapp.com/salesactivity/new', data)
                         for(var t=0; t < main_data.length; t++) {
                             for(var m=0; m < months_data.length; m++) {
                                 main_data[t][months_data[m]] = JSON.parse(main_data[t][months_data[m]])
@@ -51,7 +51,7 @@ export const store_SalesActivity = async (naming, Status, Sales_Activity, allsal
                                             another_data[q][months_data[r]] = JSON.stringify(another_data[q][months_data[r]])
                                         }
                                     }
-                                    await axios.post('http://localhost:5000/salesactivity/new', another_data[another_data.length - 1])
+                                    await axios.post('https://creacionesmayteserver.herokuapp.com/salesactivity/new', another_data[another_data.length - 1])
                                 }
                             })
                         }
@@ -107,7 +107,7 @@ export const store_SalesActivity = async (naming, Status, Sales_Activity, allsal
 export const store_Products = async (naming, Status, Products, allproduct, setAllPro, Sales_Activity, allorders, allsalesactivity) => {
     if(Products.length === 0) {
         if(Status) {
-            await axios.get("http://localhost:5000/product").then(async (item) => {
+            await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
                 console.log(`${naming} -> Products`)
                 var alldata = item.data
                 if (alldata.length > 0) {
@@ -136,23 +136,23 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                             if(order_ret.Orders_Returns) {
                                 console.log(order_ret.Orders_Returns)
                                 order_ret.Orders_Returns.forEach(async (ret) => {
-                                    await axios.put('http://localhost:5000/product/quantity', {Product_id: ret.Product_id, Stock: ret.Stock})
+                                    await axios.put('https://creacionesmayteserver.herokuapp.com/product/quantity', {Product_id: ret.Product_id, Stock: ret.Stock})
                                     var new_data = alldata.findIndex(p => p.Product_id === ret.Product_id)
                                     alldata[new_data].Stock = JSON.parse(ret.Stock)
                                     setAllPro(alldata)
                                     allproduct(alldata)
                                     console.log(ret)
                                     if(ret.del) {
-                                        await axios.delete(`http://localhost:5000/ordermaster/delete/${ret.order.Order_id}`)
+                                        await axios.delete(`https://creacionesmayteserver.herokuapp.com/ordermaster/delete/${ret.order.Order_id}`)
                                     } else {
-                                        await axios.put(`http://localhost:5000/ordermaster/price`, {
+                                        await axios.put(`https://creacionesmayteserver.herokuapp.com/ordermaster/price`, {
                                             Order_id: ret.order.Order_id,
                                             Total_price: ret.order.Total_price
                                         })
                                     }
-                                    await axios.delete(`http://localhost:5000/orderproduct/delete/${ret.val.Order_pro_id}`)
+                                    await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${ret.val.Order_pro_id}`)
                                     .then(async item => {
-                                        await axios.get('http://localhost:5000/ordermaster')
+                                        await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
                                             .then(async prod => {
                                                 let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
                                                 prod.data.sort(function (d1, d2) {
@@ -187,11 +187,11 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                                                 for(var m=0; m < months_data.length; m++) {
                                                     Sales_data[months_data[m]] = JSON.stringify(Sales_data[months_data[m]])
                                                 }
-                                                await axios.put('http://localhost:5000/salesactivity/day', {
+                                                await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
                                                     Sales_id: Sales_data.Sales_id,
                                                     ...Sales_data
                                                 })
-                                                await axios.get('http://localhost:5000/salesactivity').then(async item3 => {
+                                                await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity').then(async item3 => {
                                                     for(var t=0; t < item3.data.length; t++) {
                                                         for(var m=0; m < months_data.length; m++) {
                                                             item3.data[t][months_data[m]] = JSON.parse(item3.data[t][months_data[m]])
@@ -252,7 +252,7 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                                     Image: JSON.stringify(pro.Image),
                                 }
                                 console.log(convert_data)
-                                await axios.post("http://localhost:5000/product/new", convert_data).then(async (item) => {
+                                await axios.post("https://creacionesmayteserver.herokuapp.com/product/new", convert_data).then(async (item) => {
                                     item.data.codigo = JSON.parse(item.data.codigo);
                                     item.data.Color = JSON.parse(item.data.Color);
                                     item.data.Size = JSON.parse(item.data.Size);
@@ -291,10 +291,10 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                                 };
                                 // console.log(edit_val);
 
-                                await axios.put('http://localhost:5000/product/edit', edit_val).then(res => {
+                                await axios.put('https://creacionesmayteserver.herokuapp.com/product/edit', edit_val).then(res => {
                                     console.log(res.data, 'its here')
                                 })
-                                await axios.get("http://localhost:5000/product").then(async (item) => {
+                                await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
                                     console.log(`${naming} -> Update`)
                                     var alldata2 = item.data
                                     if (alldata2.length > 0) {
@@ -333,9 +333,9 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                             }
                             if (flag === 0) {
                                 await axios.delete(
-                                    `http://localhost:5000/product/delete/${alldata[h].Product_id}`
+                                    `https://creacionesmayteserver.herokuapp.com/product/delete/${alldata[h].Product_id}`
                                 );
-                                await axios.get("http://localhost:5000/product").then(async (item) => {
+                                await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
                                     console.log(`${naming} -> Delete`)
                                     var alldata = item.data
                                     if (alldata.length > 0) {
@@ -384,14 +384,14 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
 export const store_Category = async (naming, Status, CategoryAdd, category) => {
     if(CategoryAdd.length === 0) {
         if(Status) {
-            await axios.get("http://localhost:5000/category").then(async (item) => {
+            await axios.get("https://creacionesmayteserver.herokuapp.com/category").then(async (item) => {
                 console.log(`${naming} -> Category`)
                 category(item.data);
                 if(window.desktop) {
                     await window.api.getAllData("CategoryAdd").then(async (item2) => {
                         item2.CategoryAdd.forEach(async function (cate) {
                             if (!Object.keys(cate).includes('createdAt')) {
-                                await axios.post('http://localhost:5000/category/new', cate).then(async (item3) => {
+                                await axios.post('https://creacionesmayteserver.herokuapp.com/category/new', cate).then(async (item3) => {
                                         console.log(`${naming} -> Category Inserted`)
                                         category(item3.data)
                                         var da = item.data
@@ -414,7 +414,7 @@ export const store_Category = async (naming, Status, CategoryAdd, category) => {
                                 }
                                 if(flaging === 0) {
                                     console.log(`${naming} -> Category Delete`)
-                                    await axios.delete(`http://localhost:5000/category/delete/${c.Category_id}`)
+                                    await axios.delete(`https://creacionesmayteserver.herokuapp.com/category/delete/${c.Category_id}`)
                                     var filter = item.data.filter(item => item.Category_id !== c.Category_id)
                                     await window.api.addData(filter, "CategoryAdd")
                                     category(filter)
@@ -441,7 +441,7 @@ export const store_Category = async (naming, Status, CategoryAdd, category) => {
 export const store_Desposito = async (naming, Status, DepositoAdd, deposito) => {
     if (DepositoAdd.length === 0) {
         if (Status) {
-            await axios.get("http://localhost:5000/deposito").then(async (item) => {
+            await axios.get("https://creacionesmayteserver.herokuapp.com/deposito").then(async (item) => {
                 console.log(`${naming} -> Deposito`)
                 deposito(item.data);
                 if (window.desktop) {
@@ -460,7 +460,7 @@ export const store_Desposito = async (naming, Status, DepositoAdd, deposito) => 
 export const store_Orders = async (naming, Status, Orders, allorders, notify) => {
     if(Orders.length === 0) {
         if(Status) {
-            await axios.get('http://localhost:5000/ordermaster')
+            await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
             .then(async (item) => {
                     console.log(`${naming} -> Orders`)
                     item.data.sort(function (d1, d2) {
@@ -501,7 +501,7 @@ export const store_Orders = async (naming, Status, Orders, allorders, notify) =>
 export const store_Expenses = async (naming, Status, Expenses, allexp) => {
     if(Expenses.length === 0){
         if(Status) {
-            await axios.get("http://localhost:5000/expense").then(async (item) => {
+            await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item) => {
                 console.log(`${naming} -> all expenses`)
                 // setallDataExp(item.data)
                 item.data.sort(function (d1, d2) {
@@ -512,7 +512,7 @@ export const store_Expenses = async (naming, Status, Expenses, allexp) => {
                     await window.api.getAllData("Expenses").then(async (item2) => {
                         item2.Expenses.forEach(async function (exp, index) {
                             if(!Object.keys(exp).includes('ExpenseId')) {
-                                await axios.post("http://localhost:5000/expense/new", exp)
+                                await axios.post("https://creacionesmayteserver.herokuapp.com/expense/new", exp)
                                 .then(async (item3) => {
                                     var m = item.data;
                                     m.push(item3.data);
@@ -537,8 +537,8 @@ export const store_Expenses = async (naming, Status, Expenses, allexp) => {
                                     }
                                     if(flag === 0) {
                                         // console.log('Should Delete Expense')
-                                        await axios.delete(`http://localhost:5000/expense/delete/${ex.ExpenseId}`).then(async dele => {
-                                            await axios.get("http://localhost:5000/expense").then(async (item7) => {
+                                        await axios.delete(`https://creacionesmayteserver.herokuapp.com/expense/delete/${ex.ExpenseId}`).then(async dele => {
+                                            await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item7) => {
                                                 item7.data.sort(function (d1, d2) {
                                                     return new Date(d2.createdAt) - new Date(d1.createdAt);
                                                 });
@@ -565,8 +565,8 @@ export const store_Expenses = async (naming, Status, Expenses, allexp) => {
                                     }
                                     if(flag1 === 1) {
                                         // console.log('Should Update Expense', new_exp)
-                                        await axios.put("http://localhost:5000/expense/edit", new_exp).catch(err => console.log(err))
-                                        await axios.get("http://localhost:5000/expense").then(async (item3) => {
+                                        await axios.put("https://creacionesmayteserver.herokuapp.com/expense/edit", new_exp).catch(err => console.log(err))
+                                        await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item3) => {
                                             // var exp_new = Expenses.map(exp => exp.ExpenseId === new_exp.ExpenseId ? new_exp : exp)
                                             item3.data.sort(function (d1, d2) {
                                                 return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -596,14 +596,14 @@ export const store_Expenses = async (naming, Status, Expenses, allexp) => {
 export const store_Expensecat = async (naming, Status, Expensecat, expense_category) => {
     if (Expensecat.length === 0) {
         if(Status) {
-            await axios.get("http://localhost:5000/expensecat").then(async (item) => {
+            await axios.get("https://creacionesmayteserver.herokuapp.com/expensecat").then(async (item) => {
                 console.log(`${naming} -> ExpenseCat`) 		
                 expense_category(item.data)
                 if(window.desktop) {
                     await window.api.getAllData("Expensecat").then(async (item2) => {
                         item2.Expensecat.forEach(async function (exp_cate, index) {
                             if(!Object.keys(exp_cate).includes('CategoryExpense_id')) {
-                                await axios.post("http://localhost:5000/expensecat/new", exp_cate).then(async (item3) => {
+                                await axios.post("https://creacionesmayteserver.herokuapp.com/expensecat/new", exp_cate).then(async (item3) => {
                                     console.log(`${naming} -> new expensecate`)
                                     expense_category(item3.data);
                                     var da_cate = item.data
@@ -629,7 +629,7 @@ export const store_Expensecat = async (naming, Status, Expensecat, expense_categ
 export const store_NotifyMaster = async (naming, Status, Notific, notify) => {
     if(Notific.length === 0){
         if(Status) {
-            await axios.get("http://localhost:5000/notification").then(async item => {
+            await axios.get("https://creacionesmayteserver.herokuapp.com/notification").then(async item => {
                 console.log(`${naming} -> Notification`)
                 item.data.sort(function (d1, d2) {
                     return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -639,7 +639,7 @@ export const store_NotifyMaster = async (naming, Status, Notific, notify) => {
                     await window.api.getAllData("Notification").then(async (item2) => {
                         item2.Notification.forEach(async notify_data => {
                             if(notify_data.Notify_id === undefined) {
-                                await axios.post("http://localhost:5000/notification/new",{
+                                await axios.post("https://creacionesmayteserver.herokuapp.com/notification/new",{
                                     Title: notify_data.Title,
                                     Message:  notify_data.Message,
                                     Date: notify_data.Date

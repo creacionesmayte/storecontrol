@@ -32,7 +32,7 @@ function Expenses(props) {
             await store_Expensecat('Expenses', Status, Expensecat, expense_category)
 			// if (Expenses.length === 0) {
 			// 	if (Status) {
-			// 		await axios.get("http://localhost:5000/expense").then(async (item) => {
+			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item) => {
 			// 			console.log('all expenses')
 			// 			// setallDataExp(item.data)
 			// 			allexp(item.data)
@@ -40,7 +40,7 @@ function Expenses(props) {
 			// 				await window.api.getAllData("Expenses").then(async (item2) => {
 			// 					item2.Expenses.forEach(async function (exp, index) {
             //                         if(!Object.keys(exp).includes('ExpenseId')) {
-			// 							await axios.post("http://localhost:5000/expense/new", exp)
+			// 							await axios.post("https://creacionesmayteserver.herokuapp.com/expense/new", exp)
 			// 							.then(async (item3) => {
 			// 								var m = item.data;
 			// 								m.push(item3.data);
@@ -62,7 +62,7 @@ function Expenses(props) {
 			// }
 			// if (Expensecat.length === 0) {
 			// 	if (Status) {
-			// 		await axios.get("http://localhost:5000/expensecat").then(async (item) => {
+			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/expensecat").then(async (item) => {
 			// 			console.log("ExpenseCat -> All Expensecate")
 			// 			item.data.sort(function (d1, d2) {
 			// 				return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -72,7 +72,7 @@ function Expenses(props) {
 			// 				await window.api.getAllData("Expensecat").then(async (item2) => {
 			// 					item2.Expensecat.forEach(async function (exp_cate, index) {
 			// 						if(!Object.keys(exp_cate).includes('CategoryExpense_id')) {
-			// 							await axios.post("http://localhost:5000/expensecat/new", exp_cate).then(async (item3) => {
+			// 							await axios.post("https://creacionesmayteserver.herokuapp.com/expensecat/new", exp_cate).then(async (item3) => {
 			// 								console.log("ExpenseCat -> new expensecate")
 			// 								expense_category(item3.data);
 			// 							}).catch(err => console.log(err))
@@ -105,7 +105,7 @@ function Expenses(props) {
 		async function store_expense() {
 			if(Status && window.desktop) {
 				await window.api.getAllData("Expenses").then(async (item2) => {
-					await axios.get("http://localhost:5000/expense").then(async (item) => {
+					await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item) => {
 						// console.log(item.data, item2.Expenses)
 						if(item.data.length > item2.Expenses.length) {
 							item.data.forEach(async function(ex) {
@@ -119,8 +119,8 @@ function Expenses(props) {
 								}
 								if(flag === 0) {
 									// console.log('Should Delete Expense')
-									await axios.delete(`http://localhost:5000/expense/delete/${ex.ExpenseId}`).then(async dele => {
-										await axios.get("http://localhost:5000/expense").then(async (item7) => {
+									await axios.delete(`https://creacionesmayteserver.herokuapp.com/expense/delete/${ex.ExpenseId}`).then(async dele => {
+										await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item7) => {
 											item7.data.sort(function (d1, d2) {
 												return new Date(d2.createdAt) - new Date(d1.createdAt);
 											});
@@ -147,8 +147,8 @@ function Expenses(props) {
 								}
 								if(flag1 === 1) {
 									// console.log('Should Update Expense', new_exp)
-									await axios.put("http://localhost:5000/expense/edit", new_exp).catch(err => console.log(err))
-									await axios.get("http://localhost:5000/expense").then(async (item3) => {
+									await axios.put("https://creacionesmayteserver.herokuapp.com/expense/edit", new_exp).catch(err => console.log(err))
+									await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item3) => {
 										// var exp_new = Expenses.map(exp => exp.ExpenseId === new_exp.ExpenseId ? new_exp : exp)
 										item3.data.sort(function (d1, d2) {
 											return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -174,7 +174,7 @@ function Expenses(props) {
 	const removeExp = async (id) => {
 		if(Status) {
 			await axios.delete(
-				`http://localhost:5000/expense/delete/${id}`
+				`https://creacionesmayteserver.herokuapp.com/expense/delete/${id}`
 			);
 		}
 		var e = Expenses.filter(function (x) { return x.ExpenseId !== id })

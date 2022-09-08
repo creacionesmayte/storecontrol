@@ -165,7 +165,7 @@ function ImageSelection({imgid, colap, mainedit, ...props}) {
 							image_path: path,
 							url:url
 						})
-						await axios.put('http://localhost:5000/product/images', {
+						await axios.put('https://creacionesmayteserver.herokuapp.com/product/images', {
 							Product_id: Products[colap].Product_id,
 							Image: JSON.stringify(Products[colap].Image)
 						})

@@ -42,7 +42,7 @@ function Login({...props}) {
 			// await window.api.getAllData("Deposito").then(item => console.log(item))
 			if(DepositoAdd.length === 0) {
 				if(Status) {
-					await axios.get("http://localhost:5000/deposito").then(async (item) => {
+					await axios.get("https://creacionesmayteserver.herokuapp.com/deposito").then(async (item) => {
 						console.log('Login -> Deposito')
 						deposito(item.data);
 						if(window.desktop) {
@@ -50,7 +50,7 @@ function Login({...props}) {
 								dep_item.Deposito.forEach(async function(dep) {
 									if(!Object.keys(dep).includes('Deposito_id')) {
 										console.log('Login -> New Deposito Created')
-										await axios.post('http://localhost:5000/deposito/new', dep).then(async (item_new) => {
+										await axios.post('https://creacionesmayteserver.herokuapp.com/deposito/new', dep).then(async (item_new) => {
 											var dep_new = item.data
 											dep_new.push(item_new.data)
 											deposito(dep_new)
@@ -141,7 +141,7 @@ function Login({...props}) {
 					Type: values.val_type
 				}
 				if(Status) {
-					await axios.post('http://localhost:5000/deposito/new', dep)
+					await axios.post('https://creacionesmayteserver.herokuapp.com/deposito/new', dep)
 						.then(async (item) => {
 							var dep_new = DepositoAdd
 							dep_new.push(item.data)
