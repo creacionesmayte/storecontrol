@@ -1,19 +1,20 @@
 import React from "react";
-import { useBarcode } from "@createnextapp/react-barcode";
+// import { useBarcode } from "@createnextapp/react-barcode";
+import Barcode from "react-barcode";
 
 import "./PrintBarcode.scss";
 // import { Products_data } from "../../Data/Products_data";
 import { connect } from "react-redux";
 
-const Generate = ({ val }) => {
-    const { inputRef } = useBarcode({
-        value: val,
-        options: {
-            width: 2,
-        },
-    });
-    return <svg ref={inputRef} />;
-};
+// const Generate = ({ val }) => {
+//     const { inputRef } = useBarcode({
+//         value: val,
+//         options: {
+//             width: 2,
+//         },
+//     });
+//     return <svg ref={inputRef} />;
+// };
 // prettier-ignore
 function PrintBarcode({ printRef, printBar, ...props }) {
 
@@ -33,8 +34,11 @@ function PrintBarcode({ printRef, printBar, ...props }) {
                                         <div>{pro.nombre}</div>
                                         <div>Size: {pro.Size[j][k]}</div>
                                         <div>Color: {pro.Color[j]}</div>
-                                        <div className='d-flex justify-content-center align-items-center'>
+                                        {/* <div className='d-flex justify-content-center align-items-center'>
                                             <Generate val={item} />
+                                        </div> */}
+                                        <div className='d-flex justify-content-center align-items-center'>
+                                            <Barcode value={item} />
                                         </div>
                                     </div>
                                     : null
@@ -49,8 +53,11 @@ function PrintBarcode({ printRef, printBar, ...props }) {
                                         <div>{pro.nombre}</div>
                                         <div>Size: {pro.Size[j][k]}</div>
                                         <div>Color: {pro.Color[j]}</div>
-                                        <div className='d-flex justify-content-center align-items-center'>
+                                        {/* <div className='d-flex justify-content-center align-items-center'>
                                             <Generate val={item} />
+                                        </div> */}
+                                        <div className='d-flex justify-content-center align-items-center'>
+                                            <Barcode value={item} />
                                         </div>
                                     </div>
                                     : null

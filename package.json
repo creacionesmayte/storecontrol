@@ -3,7 +3,6 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@createnextapp/react-barcode": "^1.1.1",
 		"@electron/remote": "^2.0.8",
 		"@fortawesome/fontawesome-svg-core": "^6.1.1",
 		"@fortawesome/free-brands-svg-icons": "^6.1.1",
@@ -23,6 +22,7 @@
 		"jquery": "^3.6.0",
 		"moment": "^2.29.4",
 		"react": "^18.1.0",
+		"react-barcode": "^1.4.5",
 		"react-bootstrap": "^2.4.0",
 		"react-calendar": "^3.7.0",
 		"react-chartjs-2": "^4.1.0",
