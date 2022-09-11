@@ -44,7 +44,7 @@ function Navbar(props) {
                     <div className='profile'>
                         <div className='profile_name px-2'>{JSON.parse(localStorage.getItem('DepositoLogin'))?.nombre}</div>
                         <div className='profile_img'>
-                            <img src={require("../../assets/store1.png")} alt="UserProfile" className='user_img' />
+                            <img src={require("../../assets/store1.png")} alt="Profile" className='user_img' />
                         </div>
                     </div>
                     {
