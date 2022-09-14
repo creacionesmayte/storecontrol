@@ -15,11 +15,11 @@ function Navbar(props) {
             window.location.reload()
         } else {
             if(JSON.parse(localStorage.getItem('DepositoLogin')).Type === 'Manager') {
-                if(window.location.href.split('/')[3] === 'employeeorder' || window.location.href.split('/')[3] === '') {
+                if(window.location.href.split('/')[window.location.href.split('/').length - 1] === 'employeeorder' || window.location.href.split('/')[window.location.href.split('/').length - 1] === '') {
                     navigate(-1)
                 }
             } else {
-                if(window.location.href.split('/')[3] !== 'employeeorder' || window.location.href.split('/')[3] === '') {
+                if(window.location.href.split('/')[window.location.href.split('/').length - 1] !== 'employeeorder' || window.location.href.split('/')[window.location.href.split('/').length - 1] === '') {
                     navigate(-1)
                 }
             }
@@ -31,7 +31,7 @@ function Navbar(props) {
             <div className='d-flex justify-content-between w-100 px-4'>
                 <div className='navbar_left'>
                     {
-                        window.location.href.split('/')[3] !== 'employeeorder'
+                        window.location.href.split('/')[window.location.href.split('/').length - 1] !== 'employeeorder'
                         ? <button className='menu_btn' onClick={props.toggle}>
                             <FontAwesomeIcon icon="bars" size='xl'/>
                         </button>
@@ -48,7 +48,7 @@ function Navbar(props) {
                         </div>
                     </div>
                     {
-                        window.location.href.split('/')[3] !== 'employeeorder'
+                        window.location.href.split('/')[window.location.href.split('/').length - 1] !== 'employeeorder'
                         ? <button 
                             className='logout_btn' 
                             onClick={() => {
