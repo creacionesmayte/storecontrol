@@ -134,7 +134,7 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                     await window.api.getAllData("Products").then(async (item2) => {
                         await window.api.getAllData("Orders_Returns").then(async (order_ret) => {
                             if(order_ret.Orders_Returns) {
-                                console.log(order_ret.Orders_Returns)
+                                // console.log(order_ret.Orders_Returns)
                                 order_ret.Orders_Returns.forEach(async (ret) => {
                                     await axios.put('https://creacionesmayteserver.herokuapp.com/product/quantity', {Product_id: ret.Product_id, Stock: ret.Stock})
                                     var new_data = alldata.findIndex(p => p.Product_id === ret.Product_id)
@@ -323,49 +323,86 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                             }
                             // console.log(item)
                         });
-                        for (var h = 0; h < alldata.length; h++) {
-                            var flag = 0
-                            for (var v = 0; v < item2.Products.length; v++) {
-                                if (alldata[h].Product_id === item2.Products[v].Product_id) {
-                                    flag = 1
-                                    break
-                                }
-                            }
-                            if (flag === 0) {
-                                await axios.delete(
-                                    `https://creacionesmayteserver.herokuapp.com/product/delete/${alldata[h].Product_id}`
-                                );
-                                await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
-                                    console.log(`${naming} -> Delete`)
-                                    var alldata = item.data
-                                    if (alldata.length > 0) {
-                                        if (typeof alldata[0].Color === 'string') {
-                                            for (var i = 0; i < alldata.length; i++) {
-                                                alldata[i].codigo = JSON.parse(alldata[i].codigo)
-                                                alldata[i].Color = JSON.parse(alldata[i].Color)
-                                                alldata[i].Size = JSON.parse(alldata[i].Size)
-                                                alldata[i].Stock = JSON.parse(alldata[i].Stock)
-                                                alldata[i].precioVenta = JSON.parse(alldata[i].precioVenta)
-                                                alldata[i].costoCompra = JSON.parse(alldata[i].costoCompra)
-                                                alldata[i].costoMenor = JSON.parse(alldata[i].costoMenor)
-                                                alldata[i].Image = JSON.parse(alldata[i].Image)
+                        await window.api.getAllData("Products_Returns").then(async (product_ret) => {
+                            if(product_ret.Products_Returns) {
+                                // console.log(product_ret.Products_Returns)
+                                product_ret.Products_Returns.forEach(async (ret) => {
+                                    await axios.delete(`https://creacionesmayteserver.herokuapp.com/product/delete/${ret.Product_id}`);
+                                    await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
+                                        console.log(`${naming} -> Delete`)
+                                        var alldata = item.data
+                                        if (alldata.length > 0) {
+                                            if (typeof alldata[0].Color === 'string') {
+                                                for (var i = 0; i < alldata.length; i++) {
+                                                    alldata[i].codigo = JSON.parse(alldata[i].codigo)
+                                                    alldata[i].Color = JSON.parse(alldata[i].Color)
+                                                    alldata[i].Size = JSON.parse(alldata[i].Size)
+                                                    alldata[i].Stock = JSON.parse(alldata[i].Stock)
+                                                    alldata[i].precioVenta = JSON.parse(alldata[i].precioVenta)
+                                                    alldata[i].costoCompra = JSON.parse(alldata[i].costoCompra)
+                                                    alldata[i].costoMenor = JSON.parse(alldata[i].costoMenor)
+                                                    alldata[i].Image = JSON.parse(alldata[i].Image)
+                                                }
                                             }
                                         }
-                                    }
-                                    alldata.sort(function (d1, d2) {
-                                        return new Date(d1.createdAt) - new Date(d2.createdAt);
+                                        alldata.sort(function (d1, d2) {
+                                            return new Date(d1.createdAt) - new Date(d2.createdAt);
+                                        });
+                                        setAllPro(alldata)
+                                        allproduct(alldata);
+                                        if (window.desktop) {
+                                            await window.api.addData(alldata, "Products");
+                                        }
                                     });
-                                    setAllPro(alldata)
-                                    allproduct(alldata);
-                                    if (window.desktop) {
-                                        await window.api.addData(alldata, "Products");
-                                    }
-                                });
+                                })
                             }
-                        }
+                        })
+                        // console.log(alldata.length, item2.Products.length)
+
+                        // if(alldata.length > item2.Products.length) {
+                        //     for (var h = 0; h < alldata.length; h++) {
+                        //         var flag = 0
+                        //         for (var v = 0; v < item2.Products.length; v++) {
+                        //             if (alldata[h].Product_id === item2.Products[v].Product_id) {
+                        //                 flag = 1
+                        //                 break
+                        //             }
+                        //         }
+                        //         if (flag === 0) {
+                        //             await axios.delete(`https://creacionesmayteserver.herokuapp.com/product/delete/${alldata[h].Product_id}`);
+                        //             await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
+                        //                 console.log(`${naming} -> Delete`)
+                        //                 var alldata = item.data
+                        //                 if (alldata.length > 0) {
+                        //                     if (typeof alldata[0].Color === 'string') {
+                        //                         for (var i = 0; i < alldata.length; i++) {
+                        //                             alldata[i].codigo = JSON.parse(alldata[i].codigo)
+                        //                             alldata[i].Color = JSON.parse(alldata[i].Color)
+                        //                             alldata[i].Size = JSON.parse(alldata[i].Size)
+                        //                             alldata[i].Stock = JSON.parse(alldata[i].Stock)
+                        //                             alldata[i].precioVenta = JSON.parse(alldata[i].precioVenta)
+                        //                             alldata[i].costoCompra = JSON.parse(alldata[i].costoCompra)
+                        //                             alldata[i].costoMenor = JSON.parse(alldata[i].costoMenor)
+                        //                             alldata[i].Image = JSON.parse(alldata[i].Image)
+                        //                         }
+                        //                     }
+                        //                 }
+                        //                 alldata.sort(function (d1, d2) {
+                        //                     return new Date(d1.createdAt) - new Date(d2.createdAt);
+                        //                 });
+                        //                 setAllPro(alldata)
+                        //                 allproduct(alldata);
+                        //                 if (window.desktop) {
+                        //                     await window.api.addData(alldata, "Products");
+                        //                 }
+                        //             });
+                        //         }
+                        //     }
+                        // }
 
                     });
-                    // await window.api.addData(alldata, "Products")
+                    await window.api.addData(alldata, "Products")
+                    await window.api.deleteData("Products_Returns")
                     await window.api.deleteData("Orders_Returns")
                 }
             })
@@ -403,27 +440,38 @@ export const store_Category = async (naming, Status, CategoryAdd, category) => {
                             }
                         })
                         // console.log(item.data.length, item2.CategoryAdd.length)
-                        if(item.data.length > item2.CategoryAdd.length) {
-                            item.data.forEach(async function(c) {
-                                var flaging = 0
-                                for(var k=0; k < item2.CategoryAdd.length; k++) {
-                                    if(c.Category_id === item2.CategoryAdd[k].Category_id) {
-                                        flaging = 1
-                                        break
-                                    }
-                                }
-                                if(flaging === 0) {
-                                    console.log(`${naming} -> Category Delete`)
-                                    await axios.delete(`https://creacionesmayteserver.herokuapp.com/category/delete/${c.Category_id}`)
-                                    var filter = item.data.filter(item => item.Category_id !== c.Category_id)
-                                    await window.api.addData(filter, "CategoryAdd")
-                                    category(filter)
-                                    return
-                                }
-                            })
-                        }
+                        // if(item.data.length < item2.CategoryAdd.length) {
+                        //     item.data.forEach(async function(c) {
+                        //         var flaging = 0
+                        //         for(var k=0; k < item2.CategoryAdd.length; k++) {
+                        //             if(c.Category_id === item2.CategoryAdd[k].Category_id) {
+                        //                 flaging = 1
+                        //                 break
+                        //             }
+                        //         }
+                        //         if(flaging === 0) {
+                        //             console.log(`${naming} -> Category Delete`)
+                        //             await axios.delete(`https://creacionesmayteserver.herokuapp.com/category/delete/${c.Category_id}`)
+                        //             var filter = item.data.filter(item => item.Category_id !== c.Category_id)
+                        //             await window.api.addData(filter, "CategoryAdd")
+                        //             category(filter)
+                        //             return
+                        //         }
+                        //     })
+                        // }
                         // console.log(item2)
                     });
+                    await window.api.getAllData("Category_Returns").then(async (category_ret) => {
+                        if(category_ret.Category_Returns) {
+                            category_ret.Category_Returns.forEach(async (ret) => {
+                                await axios.delete(`https://creacionesmayteserver.herokuapp.com/category/delete/${ret.Category_id}`)
+                                var filter = item.data.filter(item => item.Category_id !== ret.Category_id)
+                                await window.api.addData(filter, "CategoryAdd")
+                                category(filter)
+                            })
+                        }
+                    })
+                    await window.api.deleteData("Category_Returns")
                     await window.api.addData(item.data, "CategoryAdd")
                 }
             })
@@ -524,32 +572,6 @@ export const store_Expenses = async (naming, Status, Expenses, allexp) => {
                                     // console.log(allExpenses, 'details')
                                 }).catch(err => console.log(err))
                             }
-                            // console.log(exp)
-                            if(item.data.length > item2.Expenses.length) {
-                                item.data.forEach(async function(ex) {
-                                    var flag = 0
-                                    for(var v=0; v<item2.Expenses.length; v++) {
-                                        // console.log(item.data[h].ExpenseId, item2.Expenses[v].ExpenseId)
-                                        if(ex.ExpenseId === item2.Expenses[v].ExpenseId) {
-                                            flag = 1
-                                            break
-                                        }
-                                    }
-                                    if(flag === 0) {
-                                        // console.log('Should Delete Expense')
-                                        await axios.delete(`https://creacionesmayteserver.herokuapp.com/expense/delete/${ex.ExpenseId}`).then(async dele => {
-                                            await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item7) => {
-                                                item7.data.sort(function (d1, d2) {
-                                                    return new Date(d2.createdAt) - new Date(d1.createdAt);
-                                                });
-                                                allexp(item7.data)
-                                                // setAllExpenses(item7.data)
-                                                await window.api.addData(item7.data, "Expenses")
-                                            })
-                                        })
-                                    }
-                                })
-                            } 
                             if(item.data.length === item2.Expenses.length) {
                                 item2.Expenses.forEach(async (new_exp) => {
                                     var find_exp = item.data.find(al => al.ExpenseId === new_exp.ExpenseId)
@@ -579,8 +601,51 @@ export const store_Expenses = async (naming, Status, Expenses, allexp) => {
                                     }
                                 })
                             }
+                            // console.log(exp)
+                            // if(item.data.length < item2.Expenses.length) {
+                            //     item.data.forEach(async function(ex) {
+                            //         var flag = 0
+                            //         for(var v=0; v<item2.Expenses.length; v++) {
+                            //             // console.log(item.data[h].ExpenseId, item2.Expenses[v].ExpenseId)
+                            //             if(ex.ExpenseId === item2.Expenses[v].ExpenseId) {
+                            //                 flag = 1
+                            //                 break
+                            //             }
+                            //         }
+                            //         if(flag === 0) {
+                            //             // console.log('Should Delete Expense')
+                            //             await axios.delete(`https://creacionesmayteserver.herokuapp.com/expense/delete/${ex.ExpenseId}`).then(async dele => {
+                            //                 await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item7) => {
+                            //                     item7.data.sort(function (d1, d2) {
+                            //                         return new Date(d2.createdAt) - new Date(d1.createdAt);
+                            //                     });
+                            //                     allexp(item7.data)
+                            //                     // setAllExpenses(item7.data)
+                            //                     await window.api.addData(item7.data, "Expenses")
+                            //                 })
+                            //             })
+                            //         }
+                            //     })
+                            // } 
                         })
                     });
+                    await window.api.getAllData("Expenses_Returns").then(async (expense_ret) => {
+                        if(expense_ret.Expenses_Returns) {
+                            expense_ret.Expenses_Returns.forEach(async (ret) => {
+                                await axios.delete(`https://creacionesmayteserver.herokuapp.com/expense/delete/${ret.Expense_id}`).then(async dele => {
+                                    await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item7) => {
+                                        item7.data.sort(function (d1, d2) {
+                                            return new Date(d2.createdAt) - new Date(d1.createdAt);
+                                        });
+                                        allexp(item7.data)
+                                        // setAllExpenses(item7.data)
+                                        await window.api.addData(item7.data, "Expenses")
+                                    })
+                                })
+                            })
+                        }
+                    })
+                    await window.api.deleteData("Expenses_Returns")
                     await window.api.addData(item.data, "Expenses")
                 }
             })

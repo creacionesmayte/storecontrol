@@ -95,11 +95,6 @@ function Products(props) {
     // }, [allproduct]);
 
     const remove = async (i) => {
-        if(Status) {
-            await axios.delete(
-                `https://creacionesmayteserver.herokuapp.com/product/delete/${i}`
-            );
-        }
         var p = Products.filter(function(x) {return x.Product_id !== i})
         var result = [];
         if (search !== "") {
@@ -118,8 +113,27 @@ function Products(props) {
         // console.log(result)
         allproduct(result)
         setAllPro(p)
-        if (window.desktop) {
-            await window.api.addData(result, "Products")
+        if(Status) {
+            await axios.delete(
+                `https://creacionesmayteserver.herokuapp.com/product/delete/${i}`
+            );
+        } else {
+            if (window.desktop) {
+                await window.api.addData(result, "Products")
+                var pro_ret2 = []
+                await window.api.getAllData('Products_Returns').then(async return_pro => {
+                    // console.log(return_ord.Orders_Returns)
+                    if(return_pro.Orders_Returns) {
+                        pro_ret2 = return_pro.Products_Returns
+                    }
+                    var extra = {
+                        Product_id: i,
+                    }
+                    pro_ret2.push(extra)
+                    // console.log(ord_ret)
+                    await window.api.addData(pro_ret2, "Products_Returns")
+                })
+            }
         }
         // inspro();
     };

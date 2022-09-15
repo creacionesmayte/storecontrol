@@ -6,7 +6,7 @@ import ExpenseEdit from "../../Components/NewExpense/ExpenseEdit";
 import axios from "axios";
 import { connect } from "react-redux";
 import { IoCloseCircle } from "react-icons/io5";
-import { AiFillEdit } from "react-icons/ai";
+// import { AiFillEdit } from "react-icons/ai";
 import { store_Expensecat, store_Expenses } from "../../Functions/AllFunctions";
 // import DetailsProduct from "../../Components/DetailsProduct/DetailsProduct";
 
@@ -172,19 +172,31 @@ function Expenses(props) {
 	}, [Expenses, Expensecat, allexp, expense_category, Status])
 
 	const removeExp = async (id) => {
-		if(Status) {
-			await axios.delete(
-				`https://creacionesmayteserver.herokuapp.com/expense/delete/${id}`
-			);
-		}
 		var e = Expenses.filter(function (x) { return x.ExpenseId !== id })
 
 		var result = [];
 		result = e
 
 		allexp(result)
-		if(window.desktop) {
-			await window.api.addData(result, "Expenses")
+		if(Status) {
+			await axios.delete(`https://creacionesmayteserver.herokuapp.com/expense/delete/${id}`);
+		} else {
+			if(window.desktop) {
+				await window.api.addData(result, "Expenses")
+				var exp_ret2 = []
+                await window.api.getAllData('Expenses_Returns').then(async return_exp => {
+                    // console.log(return_ord.Orders_Returns)
+                    if(return_exp.Expenses_Returns) {
+                        exp_ret2 = return_exp.Expenses_Returns
+                    }
+                    var extra = {
+                        Expense_id: id,
+                    }
+                    exp_ret2.push(extra)
+                    // console.log(ord_ret)
+                    await window.api.addData(exp_ret2, "Expenses_Returns")
+                })
+			}
 		}
 	}
 
@@ -212,7 +224,7 @@ function Expenses(props) {
 								<th scope="col" className='text-center'>Categoría</th>
 								<th scope="col" className='text-center'>Descripción</th>
 								<th scope="col" className='text-center'>Tipo de Pago</th>
-								<th scope="col" className='text-center'>Edit / Delete</th>
+								<th scope="col" className='text-center'>Delete</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -226,7 +238,7 @@ function Expenses(props) {
 									<td className='text-center align-middle'>{i.PayMethod}</td>
 									<td className='edit text-center align-middle'> 
 										<IoCloseCircle style={{ display: "inline" }} onClick={() => removeExp(i.ExpenseId)} className="close_icon_ind" />
-										<AiFillEdit style={{ display: "inline" }} className="edit_icon_ind" onClick={() => seteditexp(i)}  data-toggle="modal" data-target="#expenseedit" />
+										{/* <AiFillEdit style={{ display: "inline" }} className="edit_icon_ind" onClick={() => seteditexp(i)}  data-toggle="modal" data-target="#expenseedit" /> */}
 									</td>
 								</tr>
 

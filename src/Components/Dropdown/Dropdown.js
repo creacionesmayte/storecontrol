@@ -123,11 +123,25 @@ function Dropdown({ name, dropvalues, onChange, touched, errors, value_select, i
     const category_remove = async (cate, index) => {
         var filtered = CategoryAdd.filter(function(el, i) { return index !== i; });
         category(filtered)
-        if(window.desktop) {
-            await window.api.addData(filtered, "CategoryAdd")
-        }
         if(Status) {
             await axios.delete(`https://creacionesmayteserver.herokuapp.com/category/delete/${CategoryAdd.filter(function(el, i) { return index === i; })[0].Category_id}`)
+        } else {
+            if(window.desktop) {
+                await window.api.addData(filtered, "CategoryAdd")
+                var cate_ret2 = []
+                await window.api.getAllData('Category_Returns').then(async return_cate => {
+                    // console.log(return_ord.Orders_Returns)
+                    if(return_cate.Category_Returns) {
+                        cate_ret2 = return_cate.Category_Returns
+                    }
+                    var extra = {
+                        Category_id: CategoryAdd.filter(function(el, i) { return index === i; })[0].Category_id,
+                    }
+                    cate_ret2.push(extra)
+                    // console.log(ord_ret)
+                    await window.api.addData(cate_ret2, "Category_Returns")
+                })
+            }
         }
     }
 
