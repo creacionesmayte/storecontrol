@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useReactToPrint } from "react-to-print";
-import axios from "axios";
+// import axios from "axios";
 
 import "./FindProduct.scss";
 // import { Products_data } from "../../Data/Products_data";
@@ -172,244 +172,244 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 			loop.current = false
 		}
 
-		async function store_order() {
-			if(Status && window.desktop) {
-				await window.api.getAllData("Orders").then(async (orders) => {
-					// console.log('orders.Orders',orders.Orders)
-					let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-					orders.Orders.forEach(async function (ord, index) {
-						if(!Object.keys(ord).includes("Order_id")) {
-							var product_save = ord.order_product
-							// console.log('product_save', product_save)
-							delete ord.order_product
-							await axios.post('https://creacionesmayteserver.herokuapp.com/ordermaster/new', ord)
-								.then(async (item1) => {
-									for(let i=0; i<product_save.length; i++) {
-										product_save[i].Order_id = item1.data.Order_id
-									}
-									await axios.post('https://creacionesmayteserver.herokuapp.com/orderproduct/new', product_save)
-										.then(async (item2) => {
-											for(let i=0; i<product_save.length; i++) {
-												var stock = Products.filter((p) => p.Product_id === product_save[i].Product_id)[0].Stock
-												var total_stock = stock[product_save[i].parentArray][product_save[i].childArray] - product_save[i].Qty
-												stock[product_save[i].parentArray][product_save[i].childArray] = total_stock
-												var req_data = {
-													Product_id: product_save[i].Product_id,
-													Stock: JSON.stringify(stock)
-												}
+		// async function store_order() {
+		// 	if(Status && window.desktop) {
+		// 		await window.api.getAllData("Orders").then(async (orders) => {
+		// 			// console.log('orders.Orders',orders.Orders)
+		// 			let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+		// 			orders.Orders.forEach(async function (ord, index) {
+		// 				if(!Object.keys(ord).includes("Order_id")) {
+		// 					var product_save = ord.order_product
+		// 					// console.log('product_save', product_save)
+		// 					delete ord.order_product
+		// 					await axios.post('https://creacionesmayteserver.herokuapp.com/ordermaster/new', ord)
+		// 						.then(async (item1) => {
+		// 							for(let i=0; i<product_save.length; i++) {
+		// 								product_save[i].Order_id = item1.data.Order_id
+		// 							}
+		// 							await axios.post('https://creacionesmayteserver.herokuapp.com/orderproduct/new', product_save)
+		// 								.then(async (item2) => {
+		// 									for(let i=0; i<product_save.length; i++) {
+		// 										var stock = Products.filter((p) => p.Product_id === product_save[i].Product_id)[0].Stock
+		// 										var total_stock = stock[product_save[i].parentArray][product_save[i].childArray] - product_save[i].Qty
+		// 										stock[product_save[i].parentArray][product_save[i].childArray] = total_stock
+		// 										var req_data = {
+		// 											Product_id: product_save[i].Product_id,
+		// 											Stock: JSON.stringify(stock)
+		// 										}
 										
-												await axios.put('https://creacionesmayteserver.herokuapp.com/product/quantity', req_data)
-												await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
-													.then(async prod => {
-														prod.data.sort(function (d1, d2) {
-															return new Date(d2.createdAt) - new Date(d1.createdAt);
-														});
-														allorders(prod.data)
-														await window.api.addData(prod.data, "Orders")
-														var d = new Date()
-														var year = d.getFullYear()
-														var month = d.getMonth()
-														var date = d.getDate()
-														var tot = 0
-														for(var q=0; q<prod.data.length; q++) {
-															if(new Date(prod.data[q].createdAt).toDateString() === new Date().toDateString()) {
-																tot = prod.data[q].Total_price + tot
-															}
-														}
-														var index = Sales_Activity.findIndex(item3 => item3.year === year)
-														if(typeof Sales_Activity[index][months_data[month]] === 'string') {
-															for(var w=0; w < Sales_Activity.length; w++) {
-																for(var e=0; e < months_data.length; e++) {
-																	Sales_Activity[w][months_data[e]] = JSON.parse(Sales_Activity[w][months_data[e]])
-																}
-															}
-														}
-														Sales_Activity[index][months_data[month]][date-1].sales = tot
-														for(var t=0; t < Sales_Activity.length; t++) {
-															for(var m=0; m < months_data.length; m++) {
-																Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
-															}
-														}
-														await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
-															Sales_id: Sales_Activity[index].Sales_id,
-															...Sales_Activity[index]
-														})
-														await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
-															.then(async item4 => {
-																if(typeof Sales_Activity[index][months_data[month]] === 'string') {
-																	for(var t=0; t < item4.data.length; t++) {
-																		for(var m=0; m < months_data.length; m++) {
-																			item4.data[t][months_data[m]] = JSON.parse(item4.data[t][months_data[m]])
-																		}
-																	}
-																}
-																allsalesactivity(item4.data)
-															})
-													})
-											}
-										})
-										//-----------------Notification---------------------
-										// for(let i=0; i<product_save.length; i++) {
-										// 	var code = Products?.filter((p) => p.Product_id === product_save[i]?.Product_id)[0]
-										// 	for(var c=0; c<code.codigo.length; c++) {
-										// 		var index_code = code.codigo[c].findIndex(s => s === product_save[i].code)
-										// 		if(index_code !== -1) {
-										// 			var nombre = code.nombre
-										// 			var Stock = code.Stock[c][index_code]
-										// 			var Color = code.Color[c]
-										// 			var Size = code.Size[c][index_code]
-										// 			console.log('Orders -> Notifiaction')
-										// 			axios.post("https://creacionesmayteserver.herokuapp.com/notification/new",{
-										// 				Title: Stock === 0 ? 'Stock danger' : Stock <= 3 ? 'Stock warning': null,
-										// 				Message:  Stock === 0 ? `El producto de ${nombre} (${Color}, ${Size}) se agoto. cargue mas stock !` : Stock <= 3 ? `El producto de ${nombre} (${Color}, ${Size}) se esta apunto de acabar. cargue mas stock !`:  null,
-										// 				Date: new Date().toLocaleString()
-										// 			}).then((item5) => {
-										// 				var note = Notific
-										// 				note.push(item5.data)
-										// 				note.sort(function (d1, d2) {
-										// 					return new Date(d2.createdAt) - new Date(d1.createdAt);
-										// 				});
-										// 				notify(note);
-										// 			}).catch((err) => { console.log(err) })
-										// 		}
-										// 	}
-										// }
-								})
-						}
-					})
-					await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
-					.then(async (item) => {
-						// console.log(item.data.length, orders.Orders.length, item.data.length < orders.Orders.length)
-						if(item.data.length > orders.Orders.length) {
-							item.data.forEach(async function(it) {
-								var flag2 = 0
-								for(var k=0; k<orders.Orders.length; k++) {
-									if(it.Order_id === orders.Orders[k].Order_id) {
-										flag2 = 1
-										return
-									}
-								}
-								if(flag2 === 0) {
-									// console.log(item.data[n])
-									await axios.delete(`https://creacionesmayteserver.herokuapp.com/ordermaster/delete/${it.Order_id}`)
-									await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${it.order_product[0].Order_pro_id}`)
-									.then(async item => {
-										await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
-											.then(async prod => {
-												let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-												prod.data.sort(function (d1, d2) {
-													return new Date(d2.createdAt) - new Date(d1.createdAt);
-												});
-												allorders(prod.data)
-												await window.api.addData(prod.data, "Orders")
-												var year = new Date(it.createdAt).getFullYear()
-												var month = new Date(it.createdAt).getMonth()
-												var date = new Date(it.createdAt).getDate()
-												var tot = 0
-												for(var q=0; q<prod.data.length; q++) {
-													if(new Date(prod.data[q].createdAt).toDateString() === new Date(it.createdAt).toDateString()) {
-														tot = prod.data[q].Total_price + tot
-													}
-												}
-												var index = Sales_Activity.findIndex(item => item.year === year)
-												Sales_Activity[index][months_data[month]][date-1].sales = tot
-												for(var t=0; t < Sales_Activity.length; t++) {
-													for(var m=0; m < months_data.length; m++) {
-														Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
-													}
-												}
-												await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
-													Sales_id: Sales_Activity[index].Sales_id,
-													...Sales_Activity[index]
-												})
-												await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
-													.then(async item => {
-														for(var t=0; t < item.data.length; t++) {
-															for(var m=0; m < months_data.length; m++) {
-																item.data[t][months_data[m]] = JSON.parse(item.data[t][months_data[m]])
-															}
-														}
-														allsalesactivity(item.data)
-													})
-											})
-									})
-								}
-							})
-						}
-						item.data.forEach(async function(itempro) {
-							var flag3 = 0
-							// console.log(orders.Orders)
-							for(var k=0; k<orders.Orders.length; k++) {
-								if(itempro.order_product.length === orders.Orders[k].order_product.length) {
-									flag3 = 1
-									return
-								}
-							}
-							if(flag3 === 0) {
-								var ord = orders.Orders.filter(x => x.Order_id === itempro.Order_id)[0]
-								var val = {}
-								if(ord) {
-									ord.order_product.forEach(async function(myord) {
-										val = itempro.order_product.filter(it => it.Order_pro_id !== myord.Order_pro_id)[0]
-									})
-									await axios.put(`https://creacionesmayteserver.herokuapp.com/ordermaster/price`, {
-										Order_id: itempro.Order_id,
-										Total_price: itempro.Total_price - val.Total_price
-									})
-									await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${val.Order_pro_id}`)
-										.then(async item => {
-											await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
-												.then( async prod => {
-													let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-													prod.data.sort(function (d1, d2) {
-														return new Date(d2.createdAt) - new Date(d1.createdAt);
-													});
-													allorders(prod.data)
-													await window.api.addData(prod.data, "Orders")
-													var year = new Date(itempro.createdAt).getFullYear()
-													var month = new Date(itempro.createdAt).getMonth()
-													var date = new Date(itempro.createdAt).getDate()
-													var tot = 0
-													for(var q=0; q<prod.data.length; q++) {
-														if(new Date(prod.data[q].createdAt).toDateString() === new Date(val.createdAt).toDateString()) {
-															tot = prod.data[q].Total_price + tot
-														}
-													}
-													var index = Sales_Activity.findIndex(item => item.year === year)
-													Sales_Activity[index][months_data[month]][date-1].sales = tot
-													for(var t=0; t < Sales_Activity.length; t++) {
-														for(var m=0; m < months_data.length; m++) {
-															Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
-														}
-													}
-													await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
-														Sales_id: Sales_Activity[index].Sales_id,
-														...Sales_Activity[index]
-													})
-													await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
-														.then(async item => {
-															for(var t=0; t < item.data.length; t++) {
-																for(var m=0; m < months_data.length; m++) {
-																	item.data[t][months_data[m]] = JSON.parse(item.data[t][months_data[m]])
-																}
-															}
-															allsalesactivity(item.data)
-															if(window.desktop) {
-																await window.api.addData(item.data, "Sales_Activity")
-															}
-														})
-												})
-										})
-								}
-							}
-						})
-					})
-				})
-			}
-		}
+		// 										await axios.put('https://creacionesmayteserver.herokuapp.com/product/quantity', req_data)
+		// 										await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
+		// 											.then(async prod => {
+		// 												prod.data.sort(function (d1, d2) {
+		// 													return new Date(d2.createdAt) - new Date(d1.createdAt);
+		// 												});
+		// 												allorders(prod.data)
+		// 												await window.api.addData(prod.data, "Orders")
+		// 												var d = new Date()
+		// 												var year = d.getFullYear()
+		// 												var month = d.getMonth()
+		// 												var date = d.getDate()
+		// 												var tot = 0
+		// 												for(var q=0; q<prod.data.length; q++) {
+		// 													if(new Date(prod.data[q].createdAt).toDateString() === new Date().toDateString()) {
+		// 														tot = prod.data[q].Total_price + tot
+		// 													}
+		// 												}
+		// 												var index = Sales_Activity.findIndex(item3 => item3.year === year)
+		// 												if(typeof Sales_Activity[index][months_data[month]] === 'string') {
+		// 													for(var w=0; w < Sales_Activity.length; w++) {
+		// 														for(var e=0; e < months_data.length; e++) {
+		// 															Sales_Activity[w][months_data[e]] = JSON.parse(Sales_Activity[w][months_data[e]])
+		// 														}
+		// 													}
+		// 												}
+		// 												Sales_Activity[index][months_data[month]][date-1].sales = tot
+		// 												for(var t=0; t < Sales_Activity.length; t++) {
+		// 													for(var m=0; m < months_data.length; m++) {
+		// 														Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
+		// 													}
+		// 												}
+		// 												await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
+		// 													Sales_id: Sales_Activity[index].Sales_id,
+		// 													...Sales_Activity[index]
+		// 												})
+		// 												await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
+		// 													.then(async item4 => {
+		// 														if(typeof Sales_Activity[index][months_data[month]] === 'string') {
+		// 															for(var t=0; t < item4.data.length; t++) {
+		// 																for(var m=0; m < months_data.length; m++) {
+		// 																	item4.data[t][months_data[m]] = JSON.parse(item4.data[t][months_data[m]])
+		// 																}
+		// 															}
+		// 														}
+		// 														allsalesactivity(item4.data)
+		// 													})
+		// 											})
+		// 									}
+		// 								})
+		// 								//-----------------Notification---------------------
+		// 								// for(let i=0; i<product_save.length; i++) {
+		// 								// 	var code = Products?.filter((p) => p.Product_id === product_save[i]?.Product_id)[0]
+		// 								// 	for(var c=0; c<code.codigo.length; c++) {
+		// 								// 		var index_code = code.codigo[c].findIndex(s => s === product_save[i].code)
+		// 								// 		if(index_code !== -1) {
+		// 								// 			var nombre = code.nombre
+		// 								// 			var Stock = code.Stock[c][index_code]
+		// 								// 			var Color = code.Color[c]
+		// 								// 			var Size = code.Size[c][index_code]
+		// 								// 			console.log('Orders -> Notifiaction')
+		// 								// 			axios.post("https://creacionesmayteserver.herokuapp.com/notification/new",{
+		// 								// 				Title: Stock === 0 ? 'Stock danger' : Stock <= 3 ? 'Stock warning': null,
+		// 								// 				Message:  Stock === 0 ? `El producto de ${nombre} (${Color}, ${Size}) se agoto. cargue mas stock !` : Stock <= 3 ? `El producto de ${nombre} (${Color}, ${Size}) se esta apunto de acabar. cargue mas stock !`:  null,
+		// 								// 				Date: new Date().toLocaleString()
+		// 								// 			}).then((item5) => {
+		// 								// 				var note = Notific
+		// 								// 				note.push(item5.data)
+		// 								// 				note.sort(function (d1, d2) {
+		// 								// 					return new Date(d2.createdAt) - new Date(d1.createdAt);
+		// 								// 				});
+		// 								// 				notify(note);
+		// 								// 			}).catch((err) => { console.log(err) })
+		// 								// 		}
+		// 								// 	}
+		// 								// }
+		// 						})
+		// 				}
+		// 			})
+		// 			await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
+		// 			.then(async (item) => {
+		// 				// console.log(item.data.length, orders.Orders.length, item.data.length < orders.Orders.length)
+		// 				if(item.data.length > orders.Orders.length) {
+		// 					item.data.forEach(async function(it) {
+		// 						var flag2 = 0
+		// 						for(var k=0; k<orders.Orders.length; k++) {
+		// 							if(it.Order_id === orders.Orders[k].Order_id) {
+		// 								flag2 = 1
+		// 								return
+		// 							}
+		// 						}
+		// 						if(flag2 === 0) {
+		// 							// console.log(item.data[n])
+		// 							await axios.delete(`https://creacionesmayteserver.herokuapp.com/ordermaster/delete/${it.Order_id}`)
+		// 							await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${it.order_product[0].Order_pro_id}`)
+		// 							.then(async item => {
+		// 								await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
+		// 									.then(async prod => {
+		// 										let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+		// 										prod.data.sort(function (d1, d2) {
+		// 											return new Date(d2.createdAt) - new Date(d1.createdAt);
+		// 										});
+		// 										allorders(prod.data)
+		// 										await window.api.addData(prod.data, "Orders")
+		// 										var year = new Date(it.createdAt).getFullYear()
+		// 										var month = new Date(it.createdAt).getMonth()
+		// 										var date = new Date(it.createdAt).getDate()
+		// 										var tot = 0
+		// 										for(var q=0; q<prod.data.length; q++) {
+		// 											if(new Date(prod.data[q].createdAt).toDateString() === new Date(it.createdAt).toDateString()) {
+		// 												tot = prod.data[q].Total_price + tot
+		// 											}
+		// 										}
+		// 										var index = Sales_Activity.findIndex(item => item.year === year)
+		// 										Sales_Activity[index][months_data[month]][date-1].sales = tot
+		// 										for(var t=0; t < Sales_Activity.length; t++) {
+		// 											for(var m=0; m < months_data.length; m++) {
+		// 												Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
+		// 											}
+		// 										}
+		// 										await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
+		// 											Sales_id: Sales_Activity[index].Sales_id,
+		// 											...Sales_Activity[index]
+		// 										})
+		// 										await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
+		// 											.then(async item => {
+		// 												for(var t=0; t < item.data.length; t++) {
+		// 													for(var m=0; m < months_data.length; m++) {
+		// 														item.data[t][months_data[m]] = JSON.parse(item.data[t][months_data[m]])
+		// 													}
+		// 												}
+		// 												allsalesactivity(item.data)
+		// 											})
+		// 									})
+		// 							})
+		// 						}
+		// 					})
+		// 				}
+		// 				item.data.forEach(async function(itempro) {
+		// 					var flag3 = 0
+		// 					// console.log(orders.Orders)
+		// 					for(var k=0; k<orders.Orders.length; k++) {
+		// 						if(itempro.order_product.length === orders.Orders[k].order_product.length) {
+		// 							flag3 = 1
+		// 							return
+		// 						}
+		// 					}
+		// 					if(flag3 === 0) {
+		// 						var ord = orders.Orders.filter(x => x.Order_id === itempro.Order_id)[0]
+		// 						var val = {}
+		// 						if(ord) {
+		// 							ord.order_product.forEach(async function(myord) {
+		// 								val = itempro.order_product.filter(it => it.Order_pro_id !== myord.Order_pro_id)[0]
+		// 							})
+		// 							await axios.put(`https://creacionesmayteserver.herokuapp.com/ordermaster/price`, {
+		// 								Order_id: itempro.Order_id,
+		// 								Total_price: itempro.Total_price - val.Total_price
+		// 							})
+		// 							await axios.delete(`https://creacionesmayteserver.herokuapp.com/orderproduct/delete/${val.Order_pro_id}`)
+		// 								.then(async item => {
+		// 									await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
+		// 										.then( async prod => {
+		// 											let months_data = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+		// 											prod.data.sort(function (d1, d2) {
+		// 												return new Date(d2.createdAt) - new Date(d1.createdAt);
+		// 											});
+		// 											allorders(prod.data)
+		// 											await window.api.addData(prod.data, "Orders")
+		// 											var year = new Date(itempro.createdAt).getFullYear()
+		// 											var month = new Date(itempro.createdAt).getMonth()
+		// 											var date = new Date(itempro.createdAt).getDate()
+		// 											var tot = 0
+		// 											for(var q=0; q<prod.data.length; q++) {
+		// 												if(new Date(prod.data[q].createdAt).toDateString() === new Date(val.createdAt).toDateString()) {
+		// 													tot = prod.data[q].Total_price + tot
+		// 												}
+		// 											}
+		// 											var index = Sales_Activity.findIndex(item => item.year === year)
+		// 											Sales_Activity[index][months_data[month]][date-1].sales = tot
+		// 											for(var t=0; t < Sales_Activity.length; t++) {
+		// 												for(var m=0; m < months_data.length; m++) {
+		// 													Sales_Activity[t][months_data[m]] = JSON.stringify(Sales_Activity[t][months_data[m]])
+		// 												}
+		// 											}
+		// 											await axios.put('https://creacionesmayteserver.herokuapp.com/salesactivity/day', {
+		// 												Sales_id: Sales_Activity[index].Sales_id,
+		// 												...Sales_Activity[index]
+		// 											})
+		// 											await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
+		// 												.then(async item => {
+		// 													for(var t=0; t < item.data.length; t++) {
+		// 														for(var m=0; m < months_data.length; m++) {
+		// 															item.data[t][months_data[m]] = JSON.parse(item.data[t][months_data[m]])
+		// 														}
+		// 													}
+		// 													allsalesactivity(item.data)
+		// 													if(window.desktop) {
+		// 														await window.api.addData(item.data, "Sales_Activity")
+		// 													}
+		// 												})
+		// 										})
+		// 								})
+		// 						}
+		// 					}
+		// 				})
+		// 			})
+		// 		})
+		// 	}
+		// }
 		// console.log(order_loop.current, Products.length !==0, Sales_Activity.length !== 0)
 		if(order_loop.current && Products.length !==0 && Sales_Activity.length !== 0) {
-			store_order()
+			// store_order()
 			order_loop.current = false
 		}
     }, [Products.length, allproduct, category, deposito, CategoryAdd, DepositoAdd, Status, Products, Sales_Activity, allorders, allsalesactivity, setAllPro, Notific, Orders, notify]);
@@ -480,7 +480,8 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 									<tbody>
 										{
 											allpro?.map((pro, index) => 
-												<tr key={index} style={{cursor: 'pointer'}}>
+												JSON.parse(localStorage.getItem('DepositoLogin')).Type === 'Manager'
+												? <tr key={index} style={{cursor: 'pointer'}}>
 													<th onClick={() => details(pro)} scope="row" className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">{index+1}</th>
 													<td onClick={() => details(pro)} className='align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.nombre}</td>
 													<td onClick={() => details(pro)} className='align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.description}</td>
@@ -502,6 +503,30 @@ function FindProduct({ addorder, allpro, setAllPro, ...props }) {
 													<td onClick={() => details(pro)} className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.talles}</td>
 													<td className='text-center align-middle'><button className='btn btn-primary' data-dismiss='modal' onClick={() => addorder(pro)} disabled={pro.stock <= 0}>Add</button></td> */}
 												</tr>
+												: JSON.parse(localStorage.getItem('DepositoLogin')).nombre === pro.deposito.nombre
+													? <tr key={index} style={{cursor: 'pointer'}}>
+														<th onClick={() => details(pro)} scope="row" className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">{index+1}</th>
+														<td onClick={() => details(pro)} className='align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.nombre}</td>
+														<td onClick={() => details(pro)} className='align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.description}</td>
+														<td onClick={() => details(pro)} className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.deposito.nombre}</td>
+														<td className={`text-center align-middle update${index}`} data-toggle="modal" data-target="#detailsproduct" onClick={() => details(pro, index)}>
+															{CategoryAdd?.filter(function (x) {return x.Category_id === pro.Category_id;})[0]?.nombre}
+														</td>
+														<td className='text-center align-middle' style={{width:25}}>
+															<input type='checkbox' onChange={(e) => checking(e, pro)} style={{zIndex: 10}} />
+														</td>
+														{/* <td onClick={() => details(pro)} data-toggle="modal" data-target="#detailsproduct" className={`${pro.stock.filter((item) => item.stocking === 0).length > 0 ? 'bg-danger' : pro.stock.reduce((partialSum, a) => partialSum.stocking + a.stocking, 0) === 0 ? 'bg-danger' : 'bg-success'} text-center text-light align-middle`}>
+															{
+																pro.stock.reduce((partialSum, a) => partialSum + a.stocking, 0)
+															}
+														</td>
+														<td onClick={() => details(pro)} className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">${pro.costoCompra}</td>
+														<td onClick={() => details(pro)} className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.fecha}</td>
+														<td onClick={() => details(pro)} className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.categoria}</td>
+														<td onClick={() => details(pro)} className='text-center align-middle' data-toggle="modal" data-target="#detailsproduct">{pro.talles}</td>
+														<td className='text-center align-middle'><button className='btn btn-primary' data-dismiss='modal' onClick={() => addorder(pro)} disabled={pro.stock <= 0}>Add</button></td> */}
+													</tr>
+													: null
 											)
 										}
 									</tbody>
