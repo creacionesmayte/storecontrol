@@ -413,9 +413,9 @@ function DetailsOrder({ details_data, setDetailsData, order, setOrder, particula
 															</div>
 															<div className='col-md-2'>
 																<div className='delete_btn'>
-																	<button className='btn border border-dark' data-toggle='modal' data-target='#editorder' onClick={() => particularOrder(i)}>
+																	{/* <button className='btn border border-dark' data-toggle='modal' data-target='#editorder' onClick={() => particularOrder(i)}>
 																		<FontAwesomeIcon icon="edit" />
-																	</button>
+																	</button> */}
 																	{/* <button className='btn text-light bg-danger'><FontAwesomeIcon icon="trash"/></button> */}
 																	<button className='btn text-light bg-danger' onClick={() => returnProduct(pro)}>Regresar</button>
 																</div>
