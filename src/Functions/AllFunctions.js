@@ -113,6 +113,7 @@ export const store_Products = async (naming, Status, Products, allproduct, setAl
                 if (alldata.length > 0) {
                     if (typeof alldata[0].Color === 'string') {
                         for (var i = 0; i < alldata.length; i++) {
+                            // console.log(i, alldata[i].Size)
                             alldata[i].codigo = JSON.parse(alldata[i].codigo)
                             alldata[i].Color = JSON.parse(alldata[i].Color)
                             alldata[i].Size = JSON.parse(alldata[i].Size)
