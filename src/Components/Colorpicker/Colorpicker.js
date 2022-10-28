@@ -117,7 +117,7 @@ function Colorpicker({colap, addorder, ...props}) {
                 } else if(colorerror === 'Already Exist') {
                 } else {
                     Products[colap].codigo = [...Products[colap].codigo, []]
-                    Products[colap].Color = [...Products[colap].Color, e.target.value]
+                    Products[colap].Color = [...Products[colap].Color, e.target.value.trim()]
                     Products[colap].Image = [...Products[colap].Image, []]
                     Products[colap].Size = [...Products[colap].Size, ['']]
                     Products[colap].Stock = [...Products[colap].Stock, []]

@@ -339,6 +339,30 @@ function Products(props) {
 
     useEffect(() => {
         async function pro_method() {
+            // removing spaces at the end
+            // for(var i=0; i<Products.length; i++) {
+            //     for(var j=0; j<Products[i].Color.length; j++) {
+            //         Products[i].Color[j] =  Products[i].Color[j].trim()
+            //     }
+            //     var edit_val = {
+            //         Product_id: Products[i].Product_id,
+            //         nombre: Products[i].nombre,
+            //         codigo: JSON.stringify(Products[i].codigo),
+            //         description: Products[i].description,
+            //         Image: JSON.stringify(Products[i].Image),
+            //         Color: JSON.stringify(Products[i].Color),
+            //         Size: JSON.stringify(Products[i].Size),
+            //         Stock: JSON.stringify(Products[i].Stock),
+            //         precioVenta: JSON.stringify(Products[i].precioVenta),
+            //         costoCompra: JSON.stringify(Products[i].costoCompra),
+            //         costoMenor: JSON.stringify(Products[i].costoMenor),
+            //         Deposito: Products[i].Deposito_id,
+            //         deposito: Products[i].deposito.nombre,
+            //         Category_id: Products[i].Category_id,
+            //     };
+            //     await axios.put('https://creacionesmayteserver.herokuapp.com/product/edit', edit_val)
+            // }
+
             // store_Category('Products', Status, CategoryAdd, category)
 			// store_Products('Products', Status, Products, allproduct, setAllPro, Sales_Activity, allorders, allsalesactivity)
 			// store_Desposito('Products', Status, DepositoAdd, deposito)
