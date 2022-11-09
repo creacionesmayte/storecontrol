@@ -158,11 +158,6 @@ function TransferStock({ details_data, stocknum, setAllPro, ...props }) {
 
         if(!Products[colap].Color.includes(values.Color)) {
             Products[colap].Color.push(values.Color)
-        } else {
-            inn = Products[colap].Color.findIndex(item => values.Color === item)
-            ijj = Products[colap].Size[inn].findIndex(item => values.Size === item)
-        }
-        if(Products[colap].Size[i] === undefined) {
             Products[colap].Size.push([values.Size, ''])
             Products[colap].Stock.push([values.Stock])
             Products[colap].precioVenta.push([details_data.precioVenta[i][j]])
@@ -171,20 +166,46 @@ function TransferStock({ details_data, stocknum, setAllPro, ...props }) {
             Products[colap].codigo.push([Math.random().toString(16).slice(2)])
             Products[colap].Image.push([])
         } else {
-            var next_val = Products[colap].Size[i].length - 1
-            if(!Products[colap].Size[i].includes(values.Size)) {
-                Products[colap].Size[i].splice(next_val, 1, values.Size)
-                Products[colap].Size[i].push('')
-                Products[colap].Stock[i].push(values.Stock)
-                Products[colap].precioVenta[i].push(details_data.precioVenta[i][j])
-                Products[colap].costoCompra[i].push(details_data.costoCompra[i][j])
-                Products[colap].costoMenor[i].push(details_data.costoMenor[i][j])
-                Products[colap].codigo[i].push(Math.random().toString(16).slice(2))
+            inn = Products[colap].Color.findIndex(item => values.Color === item)
+            ijj = Products[colap].Size[inn].findIndex(item => values.Size === item)
+            var next_val = Products[colap].Size[inn].length - 1
+            if(!Products[colap].Size[inn].includes(values.Size)) {
+                Products[colap].Size[inn].splice(next_val, 1, values.Size)
+                Products[colap].Size[inn].push('')
+                Products[colap].Stock[inn].push(values.Stock)
+                Products[colap].precioVenta[inn].push(details_data.precioVenta[i][j])
+                Products[colap].costoCompra[inn].push(details_data.costoCompra[i][j])
+                Products[colap].costoMenor[inn].push(details_data.costoMenor[i][j])
+                Products[colap].codigo[inn].push(Math.random().toString(16).slice(2))
             } else {
                 var st = Products[colap].Stock[inn][ijj] + values.Stock
                 Products[colap].Stock[inn].splice(ijj, 1, st)
             }
         }
+        // if(Products[colap].Size[inn] === undefined) {
+        //     // Products[colap].Size.push([values.Size, ''])
+        //     // Products[colap].Stock.push([values.Stock])
+        //     // Products[colap].precioVenta.push([details_data.precioVenta[i][j]])
+        //     // Products[colap].costoCompra.push([details_data.costoCompra[i][j]])
+        //     // Products[colap].costoMenor.push([details_data.costoMenor[i][j]])
+        //     // Products[colap].codigo.push([Math.random().toString(16).slice(2)])
+        //     // Products[colap].Image.push([])
+        // } else {
+        //     var next_val = Products[colap].Size[inn].length - 1
+        //     if(!Products[colap].Size[inn].includes(values.Size)) {
+        //         Products[colap].Size[inn].splice(next_val, 1, values.Size)
+        //         Products[colap].Size[inn].push('')
+        //         Products[colap].Stock[inn].push(values.Stock)
+        //         Products[colap].precioVenta[inn].push(details_data.precioVenta[i][j])
+        //         Products[colap].costoCompra[inn].push(details_data.costoCompra[i][j])
+        //         Products[colap].costoMenor[inn].push(details_data.costoMenor[i][j])
+        //         Products[colap].codigo[inn].push(Math.random().toString(16).slice(2))
+        //     } else {
+        //         var st = Products[colap].Stock[inn][ijj] + values.Stock
+        //         Products[colap].Stock[inn].splice(ijj, 1, st)
+        //     }
+        // }
+        // console.log(Products[colap])
         var minus = details_data?.Stock[i][j] - values.Stock
         details_data.Stock[i][j] = minus
         // delete details_data.createdAt
