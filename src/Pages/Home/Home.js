@@ -78,7 +78,7 @@ function Home(props) {
             await store_Expensecat('Home', Status, Expensecat, expense_category)
             // if(Sales_Activity.length === 0) {
             //     if(Status) {
-            //         await axios.get('https://creacionesmayteserver.herokuapp.com/salesactivity')
+            //         await axios.get('https://storecontrolserver-production-1e18.up.railway.app/salesactivity')
             //             .then(async item => {
             //                 console.log("Home -> Sales Activity")
             //                 var main_data = item.data
@@ -106,7 +106,7 @@ function Home(props) {
             //                                 ...single_month 
             //                             }
             //                             main_data.push(data)
-            //                             await axios.post('https://creacionesmayteserver.herokuapp.com/salesactivity/new', data)
+            //                             await axios.post('https://storecontrolserver-production-1e18.up.railway.app/salesactivity/new', data)
             //                             for(var t=0; t < main_data.length; t++) {
             //                                 for(var m=0; m < months_data.length; m++) {
             //                                     main_data[t][months_data[m]] = JSON.parse(main_data[t][months_data[m]])
@@ -124,7 +124,7 @@ function Home(props) {
             //                                     another_data[q][months_data[r]] = JSON.stringify(another_data[q][months_data[r]])
             //                                 }
             //                             }
-            //                             await axios.post('https://creacionesmayteserver.herokuapp.com/salesactivity/new', another_data[another_data.length - 1])
+            //                             await axios.post('https://storecontrolserver-production-1e18.up.railway.app/salesactivity/new', another_data[another_data.length - 1])
             //                         }
             //                     })
             //                 }
@@ -165,7 +165,7 @@ function Home(props) {
             // }
             // if(Expenses.length === 0){
 			// 	if(Status) {
-			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/expense").then(async (item) => {
+			// 		await axios.get("https://storecontrolserver-production-1e18.up.railway.app/expense").then(async (item) => {
 			// 			console.log('Home -> all expenses')
 			// 			// setallDataExp(item.data)
 			// 			allexp(item.data)
@@ -173,7 +173,7 @@ function Home(props) {
             //                 await window.api.getAllData("Expenses").then(async (item2) => {
 			// 					item2.Expenses.forEach(async function (exp, index) {
             //                         if(!Object.keys(exp).includes('ExpenseId')) {
-			// 							await axios.post("https://creacionesmayteserver.herokuapp.com/expense/new", exp)
+			// 							await axios.post("https://storecontrolserver-production-1e18.up.railway.app/expense/new", exp)
 			// 							.then(async (item3) => {
 			// 								var m = item.data;
 			// 								m.push(item3.data);
@@ -195,14 +195,14 @@ function Home(props) {
 			// }
 			// if (Expensecat.length === 0) {
 			// 	if(Status) {
-			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/expensecat").then(async (item) => {
+			// 		await axios.get("https://storecontrolserver-production-1e18.up.railway.app/expensecat").then(async (item) => {
 			// 			console.log("Home -> ExpenseCat") 		
 			// 			expense_category(item.data)
 			// 			if(window.desktop) {
             //                 await window.api.getAllData("Expensecat").then(async (item2) => {
 			// 					item2.Expensecat.forEach(async function (exp_cate, index) {
 			// 						if(!Object.keys(exp_cate).includes('CategoryExpense_id')) {
-			// 							await axios.post("https://creacionesmayteserver.herokuapp.com/expensecat/new", exp_cate).then(async (item3) => {
+			// 							await axios.post("https://storecontrolserver-production-1e18.up.railway.app/expensecat/new", exp_cate).then(async (item3) => {
 			// 								console.log("ExpenseCat -> new expensecate")
 			// 								expense_category(item3.data);
 			// 							}).catch(err => console.log(err))
@@ -273,7 +273,7 @@ function Home(props) {
                             percentage = (total_curr / total_amount) * 100
                         }
                         // console.log(`${total_curr < total_prev ? '-' : ''}${percentage}`)
-                        axios.post("https://creacionesmayteserver.herokuapp.com/notification/new",{
+                        axios.post("https://storecontrolserver-production-1e18.up.railway.app/notification/new",{
                             Title: 'Last Month Earnings',
                             Message : `¿Sus ingresos del último mes fueron ${total_curr < total_prev ? 'no': ''} mejor que el mes anterior. ¿Has ganado ${total_curr < total_prev ? ' -' : ''}${percentage}% ${total_curr < total_prev ? ' Menos ': ' más '}.`,
                             // Message:  `Your Last month earnings was ${total_curr < total_prev ? ' not ' : ''} better then the month before that. You have earned ${total_curr < total_prev ? ' -' : ''}${percentage}% ${total_curr < total_prev ? ' less ' : ' more '}.`,
@@ -284,7 +284,7 @@ function Home(props) {
                             note.sort(function (d1, d2) {
                                 return new Date(d2.createdAt) - new Date(d1.createdAt);
                             });
-                            await axios.get("https://creacionesmayteserver.herokuapp.com/notification").then(async item => {
+                            await axios.get("https://storecontrolserver-production-1e18.up.railway.app/notification").then(async item => {
                                 item.data.sort(function (d1, d2) {
                                     return new Date(d2.createdAt) - new Date(d1.createdAt);
                                 });

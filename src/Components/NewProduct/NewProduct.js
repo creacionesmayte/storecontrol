@@ -85,7 +85,7 @@ function NewProduct({ details_data, setDetailsData, setAllPro, allpro, ...props 
         // )[0].Category_id;
         // alert(JSON.stringify(values, null, 2));
         if(Status) {
-            await axios.post("https://creacionesmayteserver.herokuapp.com/product/new", {
+            await axios.post("https://storecontrolserver-production-1e18.up.railway.app/product/new", {
                     ...values,
                     Category_id: CategoryAdd.filter(
                         (item) => item.nombre === values.Category_id

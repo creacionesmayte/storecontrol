@@ -25,7 +25,7 @@ function Notification({ employee, ...props }) {
             await store_NotifyMaster('Notification', Status, Notific, notify)
             // if(Notific.length === 0){
             //     if(Status) {
-            //         await axios.get("https://creacionesmayteserver.herokuapp.com/notification").then(async item => {
+            //         await axios.get("https://storecontrolserver-production-1e18.up.railway.app/notification").then(async item => {
             //             console.log("Notification -> Notification")
             //             item.data.sort(function (d1, d2) {
             //                 return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -35,7 +35,7 @@ function Notification({ employee, ...props }) {
             //                 await window.api.getAllData("Notification").then(async (item2) => {
             //                     item2.Notification.forEach(async notify_data => {
             //                         if(notify_data.Notify_id === undefined) {
-            //                             await axios.post("https://creacionesmayteserver.herokuapp.com/notification/new",{
+            //                             await axios.post("https://storecontrolserver-production-1e18.up.railway.app/notification/new",{
             //                                 Title: notify_data.Title,
             //                                 Message:  notify_data.Message,
             //                                 Date: notify_data.Date
@@ -81,7 +81,7 @@ function Notification({ employee, ...props }) {
 
     const delete_notify = async (id) => {
         if(Status) {
-            await axios.delete(`https://creacionesmayteserver.herokuapp.com/notification/delete/${id}`).then(async() => {
+            await axios.delete(`https://storecontrolserver-production-1e18.up.railway.app/notification/delete/${id}`).then(async() => {
                 var n = Notific.filter(item => item.Notify_id !== id)
                 notify(n)
                 if(window.desktop) {

@@ -24,7 +24,7 @@ function OrderList({ details_data, setDetailsData, order, setOrder, particularOr
 		async function pro_method() {
 			// if(Products.length === 0) {
 			// 	if(Status) {
-			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
+			// 		await axios.get("https://storecontrolserver-production-1e18.up.railway.app/product").then(async (item) => {
 			// 			console.log('OrdersList -> Products')
 			// 			var alldata = item.data
 			// 			if(alldata.length > 0) {
@@ -90,7 +90,7 @@ function OrderList({ details_data, setDetailsData, order, setOrder, particularOr
             //                                 Image: JSON.stringify(pro.Image),
             //                             }
             //                             // console.log(convert_data)
-            //                             await axios.post("https://creacionesmayteserver.herokuapp.com/product/new", convert_data).then(async (item3) => {
+            //                             await axios.post("https://storecontrolserver-production-1e18.up.railway.app/product/new", convert_data).then(async (item3) => {
             //                                 item3.data.codigo = JSON.parse(item3.data.codigo);
             //                                 item3.data.Color = JSON.parse(item3.data.Color);
             //                                 item3.data.Size = JSON.parse(item3.data.Size);
@@ -129,10 +129,10 @@ function OrderList({ details_data, setDetailsData, order, setOrder, particularOr
             //                             };
             //                             // console.log(edit_val);
                                         
-            //                             await axios.put('https://creacionesmayteserver.herokuapp.com/product/edit', edit_val).then(res => {
+            //                             await axios.put('https://storecontrolserver-production-1e18.up.railway.app/product/edit', edit_val).then(res => {
             //                                 console.log(res.data)
             //                             })
-            //                             await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item4) => {
+            //                             await axios.get("https://storecontrolserver-production-1e18.up.railway.app/product").then(async (item4) => {
             //                                 console.log('Products -> Update')
             //                                 var alldata2 = item4.data
             //                                 if(alldata2.length > 0) {
@@ -172,7 +172,7 @@ function OrderList({ details_data, setDetailsData, order, setOrder, particularOr
 			// }
 			// if(CategoryAdd.length === 0) {
 			// 	if(Status) {
-			// 		await axios.get("https://creacionesmayteserver.herokuapp.com/category").then(async (item) => {
+			// 		await axios.get("https://storecontrolserver-production-1e18.up.railway.app/category").then(async (item) => {
 			// 			console.log('OrderList -> Category')
 			// 			category(item.data);
 			// 			if(window.desktop) {

@@ -49,9 +49,9 @@ function Colorpicker({colap, addorder, ...props}) {
                 };
                 // console.log(edit_val);
                 
-                await axios.put('https://creacionesmayteserver.herokuapp.com/product/edit', edit_val)
+                await axios.put('https://storecontrolserver-production-1e18.up.railway.app/product/edit', edit_val)
             }
-            await axios.get("https://creacionesmayteserver.herokuapp.com/product").then(async (item) => {
+            await axios.get("https://storecontrolserver-production-1e18.up.railway.app/product").then(async (item) => {
                 var alldata = item.data
                 if(alldata.length > 0) {
                     if(typeof alldata[0].Color === 'string') {

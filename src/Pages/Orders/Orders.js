@@ -33,7 +33,7 @@ function Orders({ setOrderDetails, setOrdering, boxes = false, employee = null, 
 			// await store_Orders('Orders', Status, Orders, allorders, notify)
 			// if(Orders.length === 0) {
 			// 	if(Status) {
-			// 		await axios.get('https://creacionesmayteserver.herokuapp.com/ordermaster')
+			// 		await axios.get('https://storecontrolserver-production-1e18.up.railway.app/ordermaster')
 			// 		.then(async (item) => {
 			// 				console.log('Orders -> Orders')
 			// 				item.data.sort(function (d1, d2) {

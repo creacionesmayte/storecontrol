@@ -9,7 +9,8 @@ import Dropdown from "../Dropdown/Dropdown";
 import { connect } from "react-redux";
 import axios from "axios";
 
-let api = "https://creacionesmayteserver.herokuapp.com/notification/new";
+let api =
+    "https://storecontrolserver-production-1e18.up.railway.app/notification/new";
 
 // prettier-ignore
 function SendMessage({ sendActive, allNotify, setAllNotify, ...props }) {

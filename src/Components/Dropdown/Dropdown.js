@@ -34,7 +34,7 @@ function Dropdown({ name, dropvalues, onChange, touched, errors, value_select, i
         e.preventDefault()
         if(name === 'Category_id') {
             if(Status) {
-                await axios.post('https://creacionesmayteserver.herokuapp.com/category/new', { Category_id: uuidv4(), nombre: inputText})
+                await axios.post('https://storecontrolserver-production-1e18.up.railway.app/category/new', { Category_id: uuidv4(), nombre: inputText})
                     .then(async (item) => {
                         category(item.data)
                         var cate = CategoryAdd
@@ -63,7 +63,7 @@ function Dropdown({ name, dropvalues, onChange, touched, errors, value_select, i
             var deposit = DepositoAdd.find(item => item.Deposito_id === DepositoLogin.Deposito_id)
             var de = JSON.parse(deposit.Employee_list)
             de.push(inputText)
-            await axios.put('https://creacionesmayteserver.herokuapp.com/deposito/employee', { Deposito_id: deposit.Deposito_id,  Employee_list: JSON.stringify(de)})
+            await axios.put('https://storecontrolserver-production-1e18.up.railway.app/deposito/employee', { Deposito_id: deposit.Deposito_id,  Employee_list: JSON.stringify(de)})
                 .then(async (item) => {
                     console.log(de)
                     var dep = {
@@ -78,7 +78,7 @@ function Dropdown({ name, dropvalues, onChange, touched, errors, value_select, i
                     }
                     localStorage.setItem('DepositoLogin', JSON.stringify(dep))
                     DepositoLog(dep)
-                    await axios.get('https://creacionesmayteserver.herokuapp.com/deposito')
+                    await axios.get('https://storecontrolserver-production-1e18.up.railway.app/deposito')
                         .then(item => {
                             deposito(item.data)
                             setInputText('')
@@ -87,7 +87,7 @@ function Dropdown({ name, dropvalues, onChange, touched, errors, value_select, i
         }
         else if(name==="Expense_cat" || name==="Expense_cate"){
             if(Status) {
-                await axios.post('https://creacionesmayteserver.herokuapp.com/expensecat/new', {nombre: inputText}).then(async (item)=>{
+                await axios.post('https://storecontrolserver-production-1e18.up.railway.app/expensecat/new', {nombre: inputText}).then(async (item)=>{
                     allexpensecat(item.data)
                     var exp_cate = Expensecat
                     exp_cate.push(item.data)
@@ -112,7 +112,7 @@ function Dropdown({ name, dropvalues, onChange, touched, errors, value_select, i
             }
         }
         // else if(name === 'Deposito') {
-        //     await axios.post('https://creacionesmayteserver.herokuapp.com/deposito/new', { nombre: inputText})
+        //     await axios.post('https://storecontrolserver-production-1e18.up.railway.app/deposito/new', { nombre: inputText})
         //         .then((item) => {
         //             deposito(item.data)
         //             setInputText('')
@@ -124,7 +124,7 @@ function Dropdown({ name, dropvalues, onChange, touched, errors, value_select, i
         var filtered = CategoryAdd.filter(function(el, i) { return index !== i; });
         category(filtered)
         if(Status) {
-            await axios.delete(`https://creacionesmayteserver.herokuapp.com/category/delete/${CategoryAdd.filter(function(el, i) { return index === i; })[0].Category_id}`)
+            await axios.delete(`https://storecontrolserver-production-1e18.up.railway.app/category/delete/${CategoryAdd.filter(function(el, i) { return index === i; })[0].Category_id}`)
         } else {
             if(window.desktop) {
                 await window.api.addData(filtered, "CategoryAdd")

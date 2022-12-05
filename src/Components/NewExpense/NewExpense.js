@@ -35,7 +35,7 @@ function NewExpense({ allExpenses, ...props }) {
 
 	const onSubmit = async (values, { resetForm }) => {
 		if(Status) {
-			await axios.post("https://creacionesmayteserver.herokuapp.com/expense/new", {
+			await axios.post("https://storecontrolserver-production-1e18.up.railway.app/expense/new", {
 				...values,
 				date: new Date(values.date).toLocaleString(),
 				CategoryExpense_id:Expensecat.filter(item=>item.nombre===values.Expense_cat)[0].CategoryExpense_id
