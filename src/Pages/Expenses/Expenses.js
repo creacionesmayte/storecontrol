@@ -32,7 +32,7 @@ function Expenses(props) {
             await store_Expensecat('Expenses', Status, Expensecat, expense_category)
 			// if (Expenses.length === 0) {
 			// 	if (Status) {
-			// 		await axios.get("https://storecontrolserver-production-1e18.up.railway.app/expense").then(async (item) => {
+			// 		await axios.get("https://storecontrolserver-production-a0c4.up.railway.app/expense").then(async (item) => {
 			// 			console.log('all expenses')
 			// 			// setallDataExp(item.data)
 			// 			allexp(item.data)
@@ -40,7 +40,7 @@ function Expenses(props) {
 			// 				await window.api.getAllData("Expenses").then(async (item2) => {
 			// 					item2.Expenses.forEach(async function (exp, index) {
             //                         if(!Object.keys(exp).includes('ExpenseId')) {
-			// 							await axios.post("https://storecontrolserver-production-1e18.up.railway.app/expense/new", exp)
+			// 							await axios.post("https://storecontrolserver-production-a0c4.up.railway.app/expense/new", exp)
 			// 							.then(async (item3) => {
 			// 								var m = item.data;
 			// 								m.push(item3.data);
@@ -62,7 +62,7 @@ function Expenses(props) {
 			// }
 			// if (Expensecat.length === 0) {
 			// 	if (Status) {
-			// 		await axios.get("https://storecontrolserver-production-1e18.up.railway.app/expensecat").then(async (item) => {
+			// 		await axios.get("https://storecontrolserver-production-a0c4.up.railway.app/expensecat").then(async (item) => {
 			// 			console.log("ExpenseCat -> All Expensecate")
 			// 			item.data.sort(function (d1, d2) {
 			// 				return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -72,7 +72,7 @@ function Expenses(props) {
 			// 				await window.api.getAllData("Expensecat").then(async (item2) => {
 			// 					item2.Expensecat.forEach(async function (exp_cate, index) {
 			// 						if(!Object.keys(exp_cate).includes('CategoryExpense_id')) {
-			// 							await axios.post("https://storecontrolserver-production-1e18.up.railway.app/expensecat/new", exp_cate).then(async (item3) => {
+			// 							await axios.post("https://storecontrolserver-production-a0c4.up.railway.app/expensecat/new", exp_cate).then(async (item3) => {
 			// 								console.log("ExpenseCat -> new expensecate")
 			// 								expense_category(item3.data);
 			// 							}).catch(err => console.log(err))
@@ -105,7 +105,7 @@ function Expenses(props) {
 		async function store_expense() {
 			if(Status && window.desktop) {
 				await window.api.getAllData("Expenses").then(async (item2) => {
-					await axios.get("https://storecontrolserver-production-1e18.up.railway.app/expense").then(async (item) => {
+					await axios.get("https://storecontrolserver-production-a0c4.up.railway.app/expense").then(async (item) => {
 						// console.log(item.data, item2.Expenses)
 						if(item.data.length > item2.Expenses.length) {
 							item.data.forEach(async function(ex) {
@@ -119,8 +119,8 @@ function Expenses(props) {
 								}
 								if(flag === 0) {
 									// console.log('Should Delete Expense')
-									await axios.delete(`https://storecontrolserver-production-1e18.up.railway.app/expense/delete/${ex.ExpenseId}`).then(async dele => {
-										await axios.get("https://storecontrolserver-production-1e18.up.railway.app/expense").then(async (item7) => {
+									await axios.delete(`https://storecontrolserver-production-a0c4.up.railway.app/expense/delete/${ex.ExpenseId}`).then(async dele => {
+										await axios.get("https://storecontrolserver-production-a0c4.up.railway.app/expense").then(async (item7) => {
 											item7.data.sort(function (d1, d2) {
 												return new Date(d2.createdAt) - new Date(d1.createdAt);
 											});
@@ -147,8 +147,8 @@ function Expenses(props) {
 								}
 								if(flag1 === 1) {
 									// console.log('Should Update Expense', new_exp)
-									await axios.put("https://storecontrolserver-production-1e18.up.railway.app/expense/edit", new_exp).catch(err => console.log(err))
-									await axios.get("https://storecontrolserver-production-1e18.up.railway.app/expense").then(async (item3) => {
+									await axios.put("https://storecontrolserver-production-a0c4.up.railway.app/expense/edit", new_exp).catch(err => console.log(err))
+									await axios.get("https://storecontrolserver-production-a0c4.up.railway.app/expense").then(async (item3) => {
 										// var exp_new = Expenses.map(exp => exp.ExpenseId === new_exp.ExpenseId ? new_exp : exp)
 										item3.data.sort(function (d1, d2) {
 											return new Date(d2.createdAt) - new Date(d1.createdAt);
@@ -179,7 +179,7 @@ function Expenses(props) {
 
 		allexp(result)
 		if(Status) {
-			await axios.delete(`https://storecontrolserver-production-1e18.up.railway.app/expense/delete/${id}`);
+			await axios.delete(`https://storecontrolserver-production-a0c4.up.railway.app/expense/delete/${id}`);
 		} else {
 			if(window.desktop) {
 				await window.api.addData(result, "Expenses")

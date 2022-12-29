@@ -10,7 +10,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 
 let api =
-    "https://storecontrolserver-production-1e18.up.railway.app/notification/new";
+    "https://storecontrolserver-production-a0c4.up.railway.app/notification/new";
 
 // prettier-ignore
 function SendMessage({ sendActive, allNotify, setAllNotify, ...props }) {

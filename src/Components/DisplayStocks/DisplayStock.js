@@ -21,7 +21,7 @@ function DisplayStock({details, idMod, ...props}) {
     // useEffect(() => {
     //     async function dat() {
     //         if (lop) {
-    //             await axios.get("https://storecontrolserver-production-1e18.up.railway.app/product").then((item) => {
+    //             await axios.get("https://storecontrolserver-production-a0c4.up.railway.app/product").then((item) => {
     //                 var alldata = item.data
     //                 if(alldata.length > 0) {
     //                     if(typeof alldata[0].Color === 'string') {
@@ -42,7 +42,7 @@ function DisplayStock({details, idMod, ...props}) {
     //                 });
     //                 allproduct(alldata);
     //             })
-    //             await axios.get("https://storecontrolserver-production-1e18.up.railway.app/category").then((item) => {
+    //             await axios.get("https://storecontrolserver-production-a0c4.up.railway.app/category").then((item) => {
     //                 category(item.data);
     //             })
     //             setlop(false);

@@ -165,7 +165,7 @@ function ImageSelection({imgid, colap, mainedit, ...props}) {
 							image_path: path,
 							url:url
 						})
-						await axios.put('https://storecontrolserver-production-1e18.up.railway.app/product/images', {
+						await axios.put('https://storecontrolserver-production-a0c4.up.railway.app/product/images', {
 							Product_id: Products[colap].Product_id,
 							Image: JSON.stringify(Products[colap].Image)
 						})

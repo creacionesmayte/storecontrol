@@ -89,7 +89,7 @@ app.whenReady().then(async () => {
     //         // }
     //         // if (users.length !== 0) {
     //         //     await axios
-    //         //         .get("https://storecontrolserver-production-1e18.up.railway.app/users")
+    //         //         .get("https://storecontrolserver-production-a0c4.up.railway.app/users")
     //         //         .then((online_users) => {
     //         //             users.forEach(async function (user) {
     //         //                 let flag = 0;
@@ -101,7 +101,7 @@ app.whenReady().then(async () => {
     //         //                 });
     //         //                 if (flag === 0) {
     //         //                     await axios.post(
-    //         //                         "https://storecontrolserver-production-1e18.up.railway.app/users",
+    //         //                         "https://storecontrolserver-production-a0c4.up.railway.app/users",
     //         //                         {
     //         //                             name: user.name,
     //         //                             email: user.email,
@@ -113,7 +113,7 @@ app.whenReady().then(async () => {
     //         // }
 
     //         // await axios
-    //         //     .get("https://storecontrolserver-production-1e18.up.railway.app/users")
+    //         //     .get("https://storecontrolserver-production-a0c4.up.railway.app/users")
     //         //     .then((online_users) =>
     //         //         fs.writeFileSync(
     //         //             user_name,
@@ -130,7 +130,7 @@ app.whenReady().then(async () => {
     //         //     m = JSON.parse(fs.readFileSync(post_name).toString());
     //         // }
     //         // await axios
-    //         //     .get("https://storecontrolserver-production-1e18.up.railway.app/posts")
+    //         //     .get("https://storecontrolserver-production-a0c4.up.railway.app/posts")
     //         //     .then((online_post) =>
     //         //         fs.writeFileSync(
     //         //             post_name,
